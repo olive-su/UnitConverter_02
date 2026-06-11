@@ -13,7 +13,7 @@ English version: [WORK_PLAN.md](WORK_PLAN.md).
   - 가이드 파일명: 영문 슬러그.
   - REFACTOR 브랜치명: `refactor` (`refactoring` 아님).
 - 구조/규칙 참고 프로젝트: `C:\Users\usejen_id\workspace\MagicSquare_1004`.
-- 원격: `https://github.com/olive-su/UnitConverter_02.git`. 로컬 브랜치: `red` (사이클 2 — U-IN-02 RED 완료).
+- 원격: `https://github.com/olive-su/UnitConverter_02.git`. 로컬 브랜치: `red` (사이클 2 — U-IN-03 RED 완료).
 
 ## 2. 입력 자료
 
@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **완료** |
 | 1 — Spec | `spec` | Report 01~05 | **완료** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **완료** (`cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~16 | **사이클 1 완료** · **사이클 2 부분** — U-IN-01·02 RED (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
-| 4 — GREEN | `green` | Report 07~13 | **사이클 1 완료** · **사이클 2 부분** — U-IN-01 GREEN (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 3 — RED | `red` | Report 06~17 | **사이클 1 완료** · **사이클 2 부분** — U-IN-01·02·03 RED (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 4 — GREEN | `green` | Report 07~14 | **사이클 1 완료** · **사이클 2 부분** — U-IN-01·02 GREEN (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
 | 5 — REFACTOR | `refactor` | Report 13~14 | **사이클 1 완료** — P0 `6219a81` (푸시됨; PR 대기) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 16+ | **사이클 1 완료** · **사이클 2 진행 중** — U-IN-01 RED+GREEN, U-IN-02 RED |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 17+ | **사이클 1 완료** · **사이클 2 진행 중** — U-IN-01·02 RED+GREEN, U-IN-03 RED |
 | 7 — P1 | `new_features` (선택) | — | 대기 |
 
 ### ARRR 묶음 진행 (사이클 1 — Track B P0)
@@ -93,9 +93,9 @@ flowchart TB
 | 묶음 | Test ID | RED | GREEN | REFACTOR | Report |
 |------|---------|-----|-------|----------|--------|
 | 1 | U-IN-01 빈 입력 → format error | **완료** `6d562c8` | **완료** `f9af63f` | — | 15, 13 |
-| 2 | U-IN-02 콜론 없음 | **완료** | **다음** | — | 16 |
-| 3 | U-IN-03 음수 거부 | **다음** | — | — | — |
-| 4 | U-OUT-01 출력 라인 | 대기 | — | — | — |
+| 2 | U-IN-02 콜론 없음 | **완료** `371e3fb` | **완료** `d91cb15` | — | 16, 14 |
+| 3 | U-IN-03 음수 거부 | **완료** | **다음** | — | 17 |
+| 4 | U-OUT-01 출력 라인 | **다음** | — | — | — |
 
 `main` 대상 열린 PR (머지 전): #2, #4, #6. `refactor` @ `6219a81` 푸시됨. `main`은 `a4a8f45`.
 
@@ -160,7 +160,8 @@ Phase 1과 함께 `spec`에 납품 (`cb868da`).
 - **D-CNV-02 완료**: `tests/entity/test_d_cnv_02.py`, Report 08, 커밋 `fe7d672`.
 - **D-CNV-03 완료**: `tests/entity/test_d_cnv_03.py`, Report 10, 커밋 `840bfa4`.
 - **U-IN-01 완료**: `tests/boundary/test_u_in_01.py`, Report 15, 커밋 `6d562c8`.
-- **U-IN-02 완료**: `tests/boundary/test_u_in_02.py`, Report 16.
+- **U-IN-02 완료**: `tests/boundary/test_u_in_02.py`, Report 16, 커밋 `371e3fb`.
+- **U-IN-03 완료**: `tests/boundary/test_u_in_03.py`, Report 17.
 - `spec` PR 머지 후: `main`에서 `git checkout -b red` (팀 플로우에 따라 묶음별 브랜치 유지 가능).
 - [guide/06_dualtrack-red-design.ko.md](guide/06_dualtrack-red-design.ko.md) Dual-Track RED.
 - 워크플로: `/red-test-plan` → `/red-skeleton`. Track B 우선.
@@ -174,6 +175,7 @@ Phase 1과 함께 `spec`에 납품 (`cb868da`).
 - **D-CNV-03 완료**: `yard` in `convert_all`, Report 11, 커밋 `2d7bf29`.
 - **Golden Master 완료**: Report 12, 커밋 `14b860a`, pytest 6 passed.
 - **U-IN-01 완료**: `src/boundary/input_parser.py` (`parse_input` 빈 입력), Report 13, 커밋 `f9af63f`, pytest 7 passed.
+- **U-IN-02 완료**: `parse_input` 콜론 없음 가드, Report 14, 커밋 `d91cb15`, pytest 8 passed.
 - `red` PR 머지 후: `main`에서 `git checkout -b green`.
 - `/green-minimal` → `/golden-master`.
 
@@ -284,6 +286,8 @@ ARRR 사이클 슬래시 워크플로:
 - `red: U-IN-01 failing skeleton (Track A)`
 - `green: minimal parse_input empty for U-IN-01`
 - `red: U-IN-02 failing skeleton (Track A)`
+- `green: minimal parse_input no-colon for U-IN-02`
+- `red: U-IN-03 failing skeleton (Track A)`
 
 ## 10. 프로젝트 레이아웃
 
@@ -325,7 +329,7 @@ UnitConverter_02/
 
 ## 13. 현재 포커스
 
-- **진행**: **사이클 1 완료** (D-CNV RED+GREEN+Golden+REFACTOR P0). **사이클 2 부분** — U-IN-01 RED+GREEN, U-IN-02 RED 완료.
+- **진행**: **사이클 1 완료** (D-CNV RED+GREEN+Golden+REFACTOR P0). **사이클 2 부분** — U-IN-01·02 RED+GREEN, U-IN-03 RED 완료.
 - **로컬 브랜치**: `red`. 열린 PR: #2, #4, #6; `refactor` @ `6219a81` 푸시됨 (PR 대기).
-- **다음 실행**: U-IN-02 **GREEN** on `green` — `/green-minimal` → `parse_input("meter")` → `FormatError`.
+- **다음 실행**: U-IN-03 **GREEN** on `green` — `/green-minimal` → `parse_input("meter:-1")` → rejected (FR-04).
 - **진입 프롬프트**: [docs/MASTER_PROMPT.ko.md](docs/MASTER_PROMPT.ko.md) (Spec); ARRR는 슬래시 커맨드.

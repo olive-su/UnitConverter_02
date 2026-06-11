@@ -13,7 +13,7 @@ Single source of truth for what to build, in what order, and under which rules. 
   - Guide filenames: English slugs.
   - REFACTOR branch name: `refactor` (not `refactoring`).
 - Reference project for structure and conventions: `C:\Users\usejen_id\workspace\MagicSquare_1004`.
-- Remote: `https://github.com/olive-su/UnitConverter_02.git`. Local branch: `red` (Cycle 2 — U-IN-02 RED done).
+- Remote: `https://github.com/olive-su/UnitConverter_02.git`. Local branch: `red` (Cycle 2 — U-IN-03 RED done).
 
 ## 2. Inputs
 
@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **Done** |
 | 1 — Spec | `spec` | Report 01~05 | **Done** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **Done** (in `cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~16 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01·02 RED (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
-| 4 — GREEN | `green` | Report 07~13 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01 GREEN (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 3 — RED | `red` | Report 06~17 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01·02·03 RED (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 4 — GREEN | `green` | Report 07~14 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01·02 GREEN (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
 | 5 — REFACTOR | `refactor` | Report 13~14 | **Cycle 1 done** — P0 `6219a81` (pushed; PR pending) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 16+ | **Cycle 1 complete** · **Cycle 2 in progress** — U-IN-01 RED+GREEN, U-IN-02 RED |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 17+ | **Cycle 1 complete** · **Cycle 2 in progress** — U-IN-01·02 RED+GREEN, U-IN-03 RED |
 | 7 — P1 | `new_features` (optional) | — | Pending |
 
 ### ARRR bundle progress (Cycle 1 — Track B P0)
@@ -93,9 +93,9 @@ flowchart TB
 | Bundle | Test ID | RED | GREEN | REFACTOR | Reports |
 |--------|---------|-----|-------|----------|---------|
 | 1 | U-IN-01 empty → format error | **Done** `6d562c8` | **Done** `f9af63f` | — | 15, 13 |
-| 2 | U-IN-02 no colon | **Done** | **Next** | — | 16 |
-| 3 | U-IN-03 negative | **Next** | — | — | — |
-| 4 | U-OUT-01 output lines | Pending | — | — | — |
+| 2 | U-IN-02 no colon | **Done** `371e3fb` | **Done** `d91cb15` | — | 16, 14 |
+| 3 | U-IN-03 negative | **Done** | **Next** | — | 17 |
+| 4 | U-OUT-01 output lines | **Next** | — | — | — |
 
 Open PRs to `main` (not merged): #2 (`spec`), #4 (`red`), #6 (`green`). `refactor` @ `6219a81` pushed. `main` at `a4a8f45`.
 
@@ -160,7 +160,8 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 - **D-CNV-02 done**: `tests/entity/test_d_cnv_02.py`, Report 08, commit `fe7d672`.
 - **D-CNV-03 done**: `tests/entity/test_d_cnv_03.py`, Report 10, commit `840bfa4`.
 - **U-IN-01 done**: `tests/boundary/test_u_in_01.py`, Report 15, commit `6d562c8`.
-- **U-IN-02 done**: `tests/boundary/test_u_in_02.py`, Report 16.
+- **U-IN-02 done**: `tests/boundary/test_u_in_02.py`, Report 16, commit `371e3fb`.
+- **U-IN-03 done**: `tests/boundary/test_u_in_03.py`, Report 17.
 - After `spec` PR merged: `git checkout -b red` from `main` (or continue bundle branches per team flow).
 - Dual-Track RED from [guide/06_dualtrack-red-design.md](guide/06_dualtrack-red-design.md).
 - Workflow: `/red-test-plan` → `/red-skeleton` per bundle. Track B first.
@@ -284,6 +285,8 @@ Example titles:
 - `red: U-IN-01 failing skeleton (Track A)`
 - `green: minimal parse_input empty for U-IN-01`
 - `red: U-IN-02 failing skeleton (Track A)`
+- `green: minimal parse_input no-colon for U-IN-02`
+- `red: U-IN-03 failing skeleton (Track A)`
 
 ## 10. Project layout
 
@@ -325,7 +328,7 @@ UnitConverter_02/
 
 ## 13. Current focus
 
-- **Progress**: **Cycle 1 complete** (D-CNV-01~03 RED+GREEN+Golden+REFACTOR P0). **Cycle 2 partial** — U-IN-01 RED+GREEN, U-IN-02 RED done.
+- **Progress**: **Cycle 1 complete** (D-CNV-01~03 RED+GREEN+Golden+REFACTOR P0). **Cycle 2 partial** — U-IN-01·02 RED+GREEN, U-IN-03 RED done.
 - **Local branch**: `red`. Open PRs: #2, #4, #6 → `main`; `refactor` @ `6219a81` pushed (PR pending).
-- **Next execution**: U-IN-02 **GREEN** on `green` — `/green-minimal` → `parse_input("meter")` → `FormatError`.
+- **Next execution**: U-IN-03 **GREEN** on `green` — `/green-minimal` → `parse_input("meter:-1")` → rejected (FR-04).
 - **Entry prompt**: [docs/MASTER_PROMPT.md](docs/MASTER_PROMPT.md) (Spec); use slash commands for ARRR cycles.
