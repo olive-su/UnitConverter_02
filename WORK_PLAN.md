@@ -85,7 +85,7 @@ flowchart TB
 |--------|---------|-----|-------|----------|---------|
 | 1 | D-CNV-01 `to_meter` | **Done** `a38dff6` · Issue [#3](https://github.com/olive-su/UnitConverter_02/issues/3) | **Done** `2b0f01e` · Issue [#5](https://github.com/olive-su/UnitConverter_02/issues/5) | — | 06, 07 |
 | 2 | D-CNV-02 `convert_all` | **Done** `fe7d672` · Issue [#7](https://github.com/olive-su/UnitConverter_02/issues/7) | **Done** `0b3cd3e` | — | 08, 09 |
-| 3 | D-CNV-03 feet→yard via meter | **Done** `840bfa4` | **Done** | — | 10, 11 |
+| 3 | D-CNV-03 feet→yard via meter | **Done** `840bfa4` | **Done** `2d7bf29` | — | 10, 11 |
 
 Open PRs to `main` (not merged as of last update): #2 (`spec`), #4 (`red`), #6 (`green`). `main` still at `a4a8f45`.
 
