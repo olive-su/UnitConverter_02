@@ -13,7 +13,7 @@ Single source of truth for what to build, in what order, and under which rules. 
   - Guide filenames: English slugs.
   - REFACTOR branch name: `refactor` (not `refactoring`).
 - Reference project for structure and conventions: `C:\Users\usejen_id\workspace\MagicSquare_1004`.
-- Remote: `https://github.com/olive-su/UnitConverter_02.git`. Local branch: `green` (Cycle 2 — U-IN-02 GREEN done).
+- Remote: `https://github.com/olive-su/UnitConverter_02.git`. Local branch: `green` (Cycle 2 — U-IN-03 GREEN done).
 
 ## 2. Inputs
 
@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **Done** |
 | 1 — Spec | `spec` | Report 01~05 | **Done** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **Done** (in `cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~15 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01 RED (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
-| 4 — GREEN | `green` | Report 07~14 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01·02 GREEN (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 3 — RED | `red` | Report 06~17 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01·02·03 RED (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 4 — GREEN | `green` | Report 07~15 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01·02·03 GREEN (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
 | 5 — REFACTOR | `refactor` | Report 13~14 | **Cycle 1 done** — P0 `6219a81` (pushed; PR pending) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 15+ | **Cycle 1 complete** · **Cycle 2 in progress** — U-IN-01 RED+GREEN |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 17+ | **Cycle 1 complete** · **Cycle 2 in progress** — U-IN-01·02·03 RED+GREEN |
 | 7 — P1 | `new_features` (optional) | — | Pending |
 
 ### ARRR bundle progress (Cycle 1 — Track B P0)
@@ -93,9 +93,9 @@ flowchart TB
 | Bundle | Test ID | RED | GREEN | REFACTOR | Reports |
 |--------|---------|-----|-------|----------|---------|
 | 1 | U-IN-01 empty → format error | **Done** `6d562c8` | **Done** `f9af63f` | — | 15, 13 |
-| 2 | U-IN-02 no colon | **Done** `371e3fb` | **Done** | — | 16, 14 |
-| 3 | U-IN-03 negative | **Next** | — | — | — |
-| 4 | U-OUT-01 output lines | Pending | — | — | — |
+| 2 | U-IN-02 no colon | **Done** `371e3fb` | **Done** `d91cb15` | — | 16, 14 |
+| 3 | U-IN-03 negative | **Done** `f3cfa08` | **Done** | — | 17, 15 |
+| 4 | U-OUT-01 output lines | **Next** | — | — | — |
 
 Open PRs to `main` (not merged): #2 (`spec`), #4 (`red`), #6 (`green`). `refactor` @ `6219a81` pushed. `main` at `a4a8f45`.
 
@@ -173,7 +173,8 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 - **D-CNV-03 done**: `yard` in `convert_all`, Report 11, commit `2d7bf29`.
 - **Golden Master done**: Report 12, commit `14b860a`, pytest 6 passed.
 - **U-IN-01 done**: `src/boundary/input_parser.py` (`parse_input` empty), Report 13, commit `f9af63f`, pytest 7 passed.
-- **U-IN-02 done**: `parse_input` no-colon guard, Report 14, pytest 8 passed.
+- **U-IN-02 done**: `parse_input` no-colon guard, Report 14, commit `d91cb15`, pytest 8 passed.
+- **U-IN-03 done**: `NegativeValueError` negative guard, Report 15, pytest 9 passed.
 - After `red` PR merged: `git checkout -b green` from `main`.
 - `/green-minimal` → `/golden-master` for passing tests.
 
@@ -284,6 +285,7 @@ Example titles:
 - `red: U-IN-01 failing skeleton (Track A)`
 - `green: minimal parse_input empty for U-IN-01`
 - `green: minimal parse_input no-colon for U-IN-02`
+- `green: minimal parse_input negative for U-IN-03`
 
 ## 10. Project layout
 
@@ -325,7 +327,7 @@ UnitConverter_02/
 
 ## 13. Current focus
 
-- **Progress**: **Cycle 1 complete** (D-CNV-01~03 RED+GREEN+Golden+REFACTOR P0). **Cycle 2 partial** — U-IN-01·02 RED+GREEN done.
+- **Progress**: **Cycle 1 complete** (D-CNV-01~03 RED+GREEN+Golden+REFACTOR P0). **Cycle 2 partial** — U-IN-01·02·03 RED+GREEN done.
 - **Local branch**: `green`. Open PRs: #2, #4, #6 → `main`; `refactor` @ `6219a81` pushed (PR pending).
-- **Next execution**: U-IN-03 **RED** on `red` — `/red-test-plan` → `meter:-1` → negative rejected (FR-04).
+- **Next execution**: U-OUT-01 **RED** on `red` — `/red-test-plan` → `meter:2.5` → 3+ output lines (FR-02).
 - **Entry prompt**: [docs/MASTER_PROMPT.md](docs/MASTER_PROMPT.md) (Spec); use slash commands for ARRR cycles.
