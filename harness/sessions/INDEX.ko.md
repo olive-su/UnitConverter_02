@@ -15,4 +15,5 @@ English version: [INDEX.md](INDEX.md).
 ## 세션
 | 날짜 | ID | 요약 | 로그 |
 | --- | --- | --- | --- |
-| 2026-06-11 | 2026-06-11-01 | Cursor 에이전트 하네스 부트스트랩 | (이 설정) |
+| 2026-06-11 | 2026-06-11-02 | Phase 1 Spec + 스캐폴딩 (Mom Test, PRD, ARRR harness) | [2026-06-11-02-phase1-spec.ko.md](2026-06-11-02-phase1-spec.ko.md) |
+| 2026-06-11 | 2026-06-11-01 | Cursor 에이전트 하네스 부트스트랩 | (초기 설정) |
