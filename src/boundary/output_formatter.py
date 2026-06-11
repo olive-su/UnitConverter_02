@@ -4,9 +4,15 @@ import json
 
 
 def format_output(converted: dict[str, float], *, output_format: str = "lines") -> str:
-    """Return formatted conversion output (lines or json)."""
+    """Return formatted conversion output (lines, json, or csv)."""
+    order = ("meter", "feet", "yard")
     if output_format == "json":
         return json.dumps(converted)
-    order = ("meter", "feet", "yard")
+    if output_format == "csv":
+        lines = ["unit,value"]
+        for unit in order:
+            if unit in converted:
+                lines.append(f"{unit},{converted[unit]}")
+        return "\n".join(lines)
     lines = [f"{unit}: {converted[unit]}" for unit in order if unit in converted]
     return "\n".join(lines)
