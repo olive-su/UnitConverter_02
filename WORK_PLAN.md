@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **Done** |
 | 1 — Spec | `spec` | Report 01~05 | **Done** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **Done** (in `cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~19 | **Cycle 1 done** · **Cycle 2 Track A P0 RED done** · **D-REG-01 RED** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
-| 4 — GREEN | `green` | Report 07~17 | **Cycle 1 done** · **Cycle 2 Track A P0 GREEN done** · **Cycle 3 D-REG-01 GREEN** (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 3 — RED | `red` | Report 06~20 | **Cycle 1 done** · **Cycle 2 Track A P0 RED done** · **Cycle 3 Track B P1 RED done** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 4 — GREEN | `green` | Report 07~18 | **Cycle 1 done** · **Cycle 2 Track A P0 GREEN done** · **Cycle 3 Track B P1 GREEN done** (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
 | 5 — REFACTOR | `refactor` | Report 13~14 | **Cycle 1 done** — P0 `6219a81` (pushed; PR pending) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 19+ | **Cycle 1 complete** · **Cycle 2 Track A P0 complete** · **Cycle 3 Track B P1 in progress** — D-REG-01 GREEN done |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 20+ | **Cycle 1 complete** · **Cycle 2 Track A P0 complete** · **Cycle 3 Track B P1 complete** — next Cycle 4 or golden/refactor |
 | 7 — P1 | `new_features` (optional) | — | Pending |
 
 ### ARRR bundle progress (Cycle 1 — Track B P0)
@@ -101,7 +101,8 @@ flowchart TB
 
 | Bundle | Test ID | RED | GREEN | REFACTOR | Reports |
 |--------|---------|-----|-------|----------|---------|
-| 1 | D-REG-01 register cubit | **Done** `96f7931` | **Done** | — | 19, 17 |
+| 1 | D-REG-01 register cubit | **Done** `96f7931` | **Done** `71352d3` | — | 19, 17 |
+| 2 | D-CFG-01 broken JSON → ConfigError | **Done** `d761857` | **Done** | — | 20, 18 |
 
 Open PRs to `main` (not merged): #2 (`spec`), #4 (`red`), #6 (`green`). `refactor` @ `6219a81` pushed. `main` at `a4a8f45`.
 
@@ -182,7 +183,8 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 - **U-IN-02 done**: `parse_input` no-colon guard, Report 14, commit `d91cb15`, pytest 8 passed.
 - **U-IN-03 done**: `NegativeValueError` negative guard, Report 15, commit `cb7faa5`, pytest 9 passed.
 - **U-OUT-01 done**: `src/boundary/output_formatter.py` (`format_output`), Report 16, commit `ae646e6`, pytest 10 passed.
-- **D-REG-01 done**: `src/entity/unit_registry.py` (`register`), Report 17, pytest 11 passed.
+- **D-REG-01 done**: `src/entity/unit_registry.py` (`register`), Report 17, commit `71352d3`, pytest 11 passed.
+- **D-CFG-01 done**: `src/infrastructure/config_loader.py` (`load_units_json`), Report 18, pytest 12 passed.
 - After `red` PR merged: `git checkout -b green` from `main`.
 - `/green-minimal` → `/golden-master` for passing tests.
 
@@ -297,7 +299,8 @@ Example titles:
 - `red: U-OUT-01 failing skeleton (Track A)`
 - `red: D-REG-01 failing skeleton (Track B)`
 - `green: minimal register for D-REG-01 (Track B)`
-- `green: minimal format_output for U-OUT-01`
+- `red: D-CFG-01 failing skeleton (Track B)`
+- `green: minimal config load for D-CFG-01 (Track B)`
 
 ## 10. Project layout
 
@@ -307,7 +310,7 @@ UnitConverter_02/
 ├── .cursor/skills/            # unit-converter-tdd, unit-converter-docs
 ├── docs/PRD.md, MASTER_PROMPT.md
 ├── guide/                     # Phase 0 (done)
-├── src/entity/, src/boundary/
+├── src/entity/, src/boundary/, src/infrastructure/
 ├── tests/entity/, tests/boundary/, tests/golden/
 ├── Report/, Prompting/
 ├── harness/
@@ -339,7 +342,7 @@ UnitConverter_02/
 
 ## 13. Current focus
 
-- **Progress**: **Cycle 1 complete**. **Cycle 2 Track A P0 complete**. **Cycle 3 Track B P1** — D-REG-01 RED+GREEN done (`unit_registry.register` + cubit `to_meter`; EXT-02, NFR-01).
+- **Progress**: **Cycle 1 complete**. **Cycle 2 Track A P0 complete**. **Cycle 3 Track B P1 complete** — D-REG-01 + D-CFG-01 RED+GREEN (`register`, `load_units_json`/`ConfigError`; EXT-01~02, NFR-01).
 - **Local branch**: `green`. Open PRs: #2, #4, #6 → `main`; `refactor` @ `6219a81` pushed (PR pending).
-- **Next execution**: D-CFG-01 **RED** on `red` — `/red-test-plan` → `/red-skeleton`; or `/golden-master` (Cycle 2 Track A).
+- **Next execution**: Cycle 4 EXT-03 **RED** on `red`; or `/golden-master` (Cycle 2 Track A); or `green` → `refactor` + `/refactor-safe`.
 - **Entry prompt**: [docs/MASTER_PROMPT.md](docs/MASTER_PROMPT.md) (Spec); use slash commands for ARRR cycles.
