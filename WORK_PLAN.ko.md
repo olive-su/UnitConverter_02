@@ -85,7 +85,7 @@ flowchart TB
 |------|---------|-----|-------|----------|--------|
 | 1 | D-CNV-01 `to_meter` | **완료** `a38dff6` · Issue [#3](https://github.com/olive-su/UnitConverter_02/issues/3) | **완료** `2b0f01e` · Issue [#5](https://github.com/olive-su/UnitConverter_02/issues/5) | — | 06, 07 |
 | 2 | D-CNV-02 `convert_all` | **완료** `fe7d672` · Issue [#7](https://github.com/olive-su/UnitConverter_02/issues/7) | **완료** `0b3cd3e` | — | 08, 09 |
-| 3 | D-CNV-03 feet→yard meter 경유 | **완료** | **다음** | — | 10 |
+| 3 | D-CNV-03 feet→yard meter 경유 | **완료** `840bfa4` | **다음** | — | 10 |
 
 `main` 대상 열린 PR (머지 전): #2 (`spec`), #4 (`red`), #6 (`green`). `main`은 `a4a8f45` 유지.
 
@@ -307,7 +307,7 @@ UnitConverter_02/
 
 ## 13. 현재 포커스
 
-- **진행**: Phase 0~2 완료; D-CNV-01·02 RED+GREEN 완료; **D-CNV-03 RED** 완료 (로컬).
+- **진행**: Phase 0~2 완료; D-CNV-01·02 RED+GREEN 완료; **D-CNV-03 RED** 완료 (`840bfa4`).
 - **로컬 브랜치**: `red`. 열린 PR: #2, #4, #6 → `main` (머지·리뷰 대기).
 - **다음 실행**: D-CNV-03 **GREEN** on `green` — `/green-minimal` → `convert_all`에 `yard` 추가.
 - **진입 프롬프트**: [docs/MASTER_PROMPT.ko.md](docs/MASTER_PROMPT.ko.md) (Spec); ARRR는 슬래시 커맨드.

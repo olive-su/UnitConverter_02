@@ -85,7 +85,7 @@ flowchart TB
 |--------|---------|-----|-------|----------|---------|
 | 1 | D-CNV-01 `to_meter` | **Done** `a38dff6` · Issue [#3](https://github.com/olive-su/UnitConverter_02/issues/3) | **Done** `2b0f01e` · Issue [#5](https://github.com/olive-su/UnitConverter_02/issues/5) | — | 06, 07 |
 | 2 | D-CNV-02 `convert_all` | **Done** `fe7d672` · Issue [#7](https://github.com/olive-su/UnitConverter_02/issues/7) | **Done** `0b3cd3e` | — | 08, 09 |
-| 3 | D-CNV-03 feet→yard via meter | **Done** | **Next** | — | 10 |
+| 3 | D-CNV-03 feet→yard via meter | **Done** `840bfa4` | **Next** | — | 10 |
 
 Open PRs to `main` (not merged as of last update): #2 (`spec`), #4 (`red`), #6 (`green`). `main` still at `a4a8f45`.
 
@@ -307,7 +307,7 @@ UnitConverter_02/
 
 ## 13. Current focus
 
-- **Progress**: Phases 0–2 complete; D-CNV-01·02 RED+GREEN done; **D-CNV-03 RED** done (local).
+- **Progress**: Phases 0–2 complete; D-CNV-01·02 RED+GREEN done; **D-CNV-03 RED** done (`840bfa4`).
 - **Local branch**: `red`. Open PRs: #2, #4, #6 → `main` (awaiting merge/review).
 - **Next execution**: D-CNV-03 **GREEN** on `green` — `/green-minimal` → `convert_all`에 `yard` 추가.
 - **Entry prompt**: [docs/MASTER_PROMPT.md](docs/MASTER_PROMPT.md) (Spec); use slash commands for ARRR cycles.
