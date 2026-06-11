@@ -1,0 +1,33 @@
+---
+description: Clean-code commit and push policy. Commits are English Conventional Commits; push needs confirmation.
+alwaysApply: true
+---
+
+# Commit and Push Policy
+
+## When to Commit
+- A logical unit is complete (feature, fix, refactor, test, or docs).
+- The working change grows large; split into small cohesive commits.
+- A session log is saved.
+
+## Pre-Commit Checks
+- Run tests and linter; do not commit on failure.
+- Keep each commit single-purpose and self-contained.
+
+## Commit Message Format (English, Conventional Commits)
+- `feat: ...` new feature
+- `fix: ...` bug fix
+- `refactor: ...` no behavior change
+- `test: ...` tests only
+- `docs: ...` docs only
+- `chore: ...` tooling/config
+- Subject: imperative mood, <= 72 chars. Body explains the why, not the what.
+
+## Push Policy
+- Auto local commits are allowed.
+- Never push to remote without explicit user confirmation (commit-only policy).
+- Never force-push or push to `main` without explicit request.
+
+## Safety
+- Do not commit secrets (`.env`, credentials).
+- Do not amend or rewrite already-pushed history.

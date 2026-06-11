@@ -1,0 +1,36 @@
+---
+description: Bilingual documentation policy and technical writing checklist for all Markdown docs.
+globs: **/*.md
+alwaysApply: false
+---
+
+# Documentation Policy
+
+Applies to every human-readable Markdown document.
+
+## Bilingual Rule
+- Every doc ships in two files: `name.md` (English) and `name.ko.md` (Korean).
+- Keep both versions in sync. Update both in the same change.
+- `.cursor/rules/*.mdc` are machine config and stay English-only.
+
+## Style
+- Use a terse, bullet-point style (개조식). Prefer fragments over long sentences.
+- One page, one goal. Start with a short overview.
+- No emojis.
+
+## Technical Writing Checklist (technical-writing.dev)
+- Structure
+  - One goal per page; split if depth exceeds H4.
+  - Lead with an overview; reader knows the takeaway up front.
+  - Predictable, consistent headings and term usage.
+  - Deliver value first; defer secondary detail.
+  - Titles are concise, keyword-rich, declarative.
+- Sentences
+  - Keep only needed information; one idea per line.
+  - Remove meta-discourse ("as mentioned above").
+  - Be concrete; use action verbs.
+  - Be consistent; expand acronyms on first use.
+  - Make the subject clear; prefer active voice with the developer as subject.
+
+## Full Guide
+- See `harness/guides/documentation-guide.md` / `.ko.md`.
