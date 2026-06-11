@@ -1,83 +1,90 @@
+# UnitConverter_02
 
-## Unit Converter (Python)
-![unit-converter](./unit-converter.jpg)
-### Overview
-- 사용자가 입력한 길이(`단위:값`)를 기반으로, 해당 값을 다른 모든 단위로 변환해 출력하는 프로그램.
-- 새로운 단위를 추가할 때 기존 코드의 변경이 최소화되도록 설계한다.
-- 각 단위 변환 로직은 테스트 코드로 검증한다.
+Korean version: [README.ko.md](README.ko.md).
 
-### 가상환경 설정 및 실행
+| Field | Value |
+|-------|-------|
+| Branch | `red` |
+| Phase | **Red** — failing tests only, no production implementation |
+| Remote | [olive-su/UnitConverter_02](https://github.com/olive-su/UnitConverter_02) |
+| PR | [#4 red → main](https://github.com/olive-su/UnitConverter_02/pull/4) |
+| Latest commit | `e9db033` — U-OUT-04 failing skeleton (Track A) |
+
+---
+
+## What this branch is
+
+This is the **Red** branch in ARRR / Dual-Track TDD. It contains **11 intentional failing tests** that define the contract for Cycle 1–4 bundles. `src/` has only empty package stubs — **no converter, parser, or formatter code**. GREEN work happens on `green`.
+
+## Expected test result
+
 ```bash
-# 가상환경 생성
-python -m venv venv
-
-# 가상환경 활성화 (Windows)
-venv\Scripts\activate
-
-# 가상환경 활성화 (macOS/Linux)
-source venv/bin/activate
-
-# 실행
-python UnitConverter.py
-
-# 가상환경 비활성화
-deactivate
+pip install -e ".[dev]"
+python -m pytest -q
+# Expected: 11 failed (all RED — this is correct)
 ```
 
-### 기본 요구사항
-1. 사용자 입력 예시:
-   ```
-   meter:2.5
-   ```
-   → 출력:
-   ```
-   2.5 meter = 8.2 feet
-   2.5 meter = 2.7 yard
-   ...
-   ```
+## Test inventory (all RED)
 
-2. 현재 지원 단위:
-   - meter
-   - feet
-   - yard
+### Track B — Entity / domain
 
-3. 새로운 단위가 추가될 때도 기존 코드의 변경이 최소화되도록 할 것.
+| Test file | Trace ID | Requirement |
+|-----------|----------|-------------|
+| `tests/entity/test_d_cnv_01.py` | D-CNV-01 / FR-02 | `to_meter` — one feet → meter |
+| `tests/entity/test_d_cnv_02.py` | D-CNV-02 / FR-02 | `convert_all` — meter → all units |
+| `tests/entity/test_d_cnv_03.py` | D-CNV-03 / FR-02 | feet → yard via meter SSOT |
+| `tests/entity/test_d_reg_01.py` | D-REG-01 / EXT-02 | dynamic unit registration (cubit) |
+| `tests/entity/test_d_cfg_01.py` | D-CFG-01 / EXT-01 | broken JSON config raises error |
 
-4. 각 단위 간 변환이 정확히 계산되도록 테스트 코드를 작성할 것.
+### Track A — Boundary / CLI
 
-### 비즈니스 로직
-- `1 meter = 3.28084 feet`
-- `1 meter = 1.09361 yard`
-- feet/yard 간의 비율은 meter 기반으로 계산.
+| Test file | Trace ID | Requirement |
+|-----------|----------|-------------|
+| `tests/boundary/test_u_in_01.py` | U-IN-01 / FR-05 | empty input → format error |
+| `tests/boundary/test_u_in_02.py` | U-IN-02 / FR-05 | missing colon → format error |
+| `tests/boundary/test_u_in_03.py` | U-IN-03 / FR-04 | negative value rejected |
+| `tests/boundary/test_u_out_01.py` | U-OUT-01 / FR-02 | lines output for `meter:2.5` |
+| `tests/boundary/test_u_out_02.py` | U-OUT-02 / EXT-03 | JSON output format |
+| `tests/boundary/test_u_out_04.py` | U-OUT-04 / EXT-03 | table output format |
 
-### 품질 요구사항
-- OCP를 만족하는 설계
-- SRP를 만족하는 클래스 구성
-- 입력 값 검증 (음수, 잘못된 형식, 없는 단위)
+Note: U-OUT-03 (CSV) was added directly on `green` (GREEN-only bundle).
 
-### 추가 요구사항
-- **설정 외부화**
-   - 변환 비율을 외부 설정 파일(JSON/YAML)에서 로드
-- **동적으로 단위와 비율을 등록할 수 있도록 한다**
-   - 사용자 입력으로 `1 cubit = 0.4572 meter`를 등록하고 사용 가능
-- **출력 포맷 선택 기능** 
-   - JSON / CSV / 표 형태 출력
+## What is **not** on `red`
 
+- No `src/entity/converter.py`, `unit_registry.py`, `constants.py`
+- No `src/boundary/input_parser.py`, `output_formatter.py`
+- No `src/infrastructure/config_loader.py`
+- No golden master baselines under `tests/golden/`
 
-## 생성형AI를 활용한 Activities (6 시간)
+## Branch map
 
-1. 문제 코드 및 기본 요구사항 분석 (0.5시간)
-   - 기본 코드구조, 로직 이해
-2. 기본 요구사항 및 품질 요구사항 구현 (2시간)
-   - OCP를 만족하는 인터페이스 구현 
-   - SRP를 만족하도록 클래스 구현 
-   - 입력값 검증을 위한 구현
-3. TC 구현 (0.5시간)
-   - 단위변환 기능 검증 및 입력 값 검증 TC 작성 
-4. 추가 요구사항 구현 (2시간)
-   - 3개 요구사항 구현 및 TC 작성 
-5. 회고 및 발표 (1시간)
-   - 실습 목표와 달성도
-   - AI를 어떻게 활용했나? 도움이 된 순간과 한계는?
-   - TC를 추가해보면서 개선에 미친 영향, TC 작성 팁
-   - 클린코드와 리팩토링에서 느낀 장점과 어려운점
+```text
+spec  → requirements and harness
+red   → you are here (11 failing tests, stubs only)
+green → minimal implementation (15 passing tests)
+refactor → Cycle 1 structure cleanup
+```
+
+## Workflow for builders
+
+1. Pick one RED bundle (one test file = one commit on `red`).
+2. Checkout `green`, implement the **smallest** code to pass that test.
+3. Commit on `green` with `green: minimal … for <ID>`.
+4. Do not fix tests on `red` — tests are the specification.
+
+References: `guide/06_dualtrack-red-design.md`, `WORK_PLAN.md` sections 5–8.
+
+## Project docs
+
+- Requirements: `docs/PRD.md`
+- Trace matrix: `guide/02_traceability-matrix.md`
+- Target modules: `guide/04_target-architecture.md`
+- Agent entry: `AGENTS.md`
+
+## Legacy reference
+
+`UnitConverter.py` remains as the pre-refactor seed; new code must not copy its if/elif structure.
+
+## Next step
+
+Merge or rebase from `green` when reviewing the full passing stack, or continue RED→GREEN cycles per `WORK_PLAN.md`.
