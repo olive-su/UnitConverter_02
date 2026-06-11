@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **Done** |
 | 1 — Spec | `spec` | Report 01~05 | **Done** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **Done** (in `cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~21 | **Cycle 1–3 RED done** · **Cycle 4 Track A P1 in progress** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 3 — RED | `red` | Report 06~22 | **Cycle 1–3 RED done** · **Cycle 4 Track A P1 RED done** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
 | 4 — GREEN | `green` | Report 07~18 | **Cycle 1–3 GREEN done** (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
 | 5 — REFACTOR | `refactor` | Report 13~14 | **Cycle 1 done** — P0 `6219a81` (pushed; PR pending) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 21+ | **Cycle 1–3 complete** · **Cycle 4 Track A P1 in progress** — U-OUT-02 RED done |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 22+ | **Cycle 1–3 complete** · **Cycle 4 Track A P1 RED complete** — U-OUT-04 RED done |
 | 7 — P1 | `new_features` (optional) | — | Pending |
 
 ### ARRR bundle progress (Cycle 1 — Track B P0)
@@ -108,7 +108,8 @@ flowchart TB
 
 | Bundle | Test ID | RED | GREEN | REFACTOR | Reports |
 |--------|---------|-----|-------|----------|---------|
-| 1 | U-OUT-02 format=json | **Done** | **Next** | — | 21 |
+| 1 | U-OUT-02 format=json | **Done** `df00649` | **Done** | — | 21 |
+| 2 | U-OUT-04 format=table | **Done** | **Next** | — | 22 |
 
 Open PRs to `main` (not merged): #2 (`spec`), #4 (`red`), #6 (`green`). `refactor` @ `6219a81` pushed. `main` at `a4a8f45`.
 
@@ -178,7 +179,8 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 - **U-OUT-01 done**: `tests/boundary/test_u_out_01.py`, Report 18, commit `f97e29d`.
 - **D-REG-01 done**: `tests/entity/test_d_reg_01.py`, Report 19, commit `96f7931`.
 - **D-CFG-01 done**: `tests/entity/test_d_cfg_01.py`, Report 20, commit `d761857`.
-- **U-OUT-02 done**: `tests/boundary/test_u_out_02.py`, Report 21.
+- **U-OUT-02 done**: `tests/boundary/test_u_out_02.py`, Report 21, commit `df00649`.
+- **U-OUT-04 done**: `tests/boundary/test_u_out_04.py`, Report 22.
 - After `spec` PR merged: `git checkout -b red` from `main` (or continue bundle branches per team flow).
 - Dual-Track RED from [guide/06_dualtrack-red-design.md](guide/06_dualtrack-red-design.md).
 - Workflow: `/red-test-plan` → `/red-skeleton` per bundle. Track B first.
@@ -310,6 +312,7 @@ Example titles:
 - `green: minimal register for D-REG-01 (Track B)`
 - `red: D-CFG-01 failing skeleton (Track B)`
 - `red: U-OUT-02 failing skeleton (Track A)`
+- `red: U-OUT-04 failing skeleton (Track A)`
 
 ## 10. Project layout
 
@@ -351,7 +354,7 @@ UnitConverter_02/
 
 ## 13. Current focus
 
-- **Progress**: **Cycle 1–3 complete** (RED+GREEN). **Cycle 4 Track A P1** — **U-OUT-02 RED done** (`meter:2.5` + `format=json`; EXT-03).
+- **Progress**: **Cycle 1–3 complete**. **Cycle 4 Track A P1** — U-OUT-02·04 RED done; U-OUT-02·03 GREEN on `green` (`json`/`csv`; EXT-03).
 - **Local branch**: `red`. Open PRs: #2, #4, #6 → `main`; `refactor` @ `6219a81` pushed (PR pending).
-- **Next execution**: U-OUT-02 **GREEN** on `green` — `/green-minimal` → `format_output(..., format="json")`.
+- **Next execution**: U-OUT-04 **GREEN** on `green` — `/green-minimal` → `format_output(..., format="table")` (Cycle 4 final).
 - **Entry prompt**: [docs/MASTER_PROMPT.md](docs/MASTER_PROMPT.md) (Spec); use slash commands for ARRR cycles.
