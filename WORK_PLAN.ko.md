@@ -13,7 +13,7 @@ English version: [WORK_PLAN.md](WORK_PLAN.md).
   - 가이드 파일명: 영문 슬러그.
   - REFACTOR 브랜치명: `refactor` (`refactoring` 아님).
 - 구조/규칙 참고 프로젝트: `C:\Users\usejen_id\workspace\MagicSquare_1004`.
-- 원격: `https://github.com/olive-su/UnitConverter_02.git`. Spec 작업 브랜치: `spec`.
+- 원격: `https://github.com/olive-su/UnitConverter_02.git`. 로컬 브랜치: `red` (사이클 1 — D-CNV-02 RED 완료).
 
 ## 2. 입력 자료
 
@@ -71,13 +71,23 @@ flowchart TB
 | Phase | 브랜치 | MagicSquare 대응 | 상태 |
 |-------|--------|------------------|------|
 | 0 — guide/ | — | — | **완료** |
-| 1 — Spec | `spec` | Report 01~04 | **다음** |
-| 2 — Scaffolding | `spec` | Report 04 Step 2 | 대기 |
-| 3 — RED | `red` | Report 06~07 | 대기 |
-| 4 — GREEN | `green` | Report 08~09 | 대기 |
-| 5 — REFACTOR | `refactor` | Report 12 | 대기 |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 13 | 대기 |
+| 1 — Spec | `spec` | Report 01~05 | **완료** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
+| 2 — Scaffolding | `spec` | Report 04 Step 2 | **완료** (`cb868da`, PR #2) |
+| 3 — RED | `red` | Report 06~08 | **사이클 1 부분** — D-CNV-01·02 RED 완료 (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open; D-CNV-02 미커밋) |
+| 4 — GREEN | `green` | Report 08~09 | **사이클 1 부분** — D-CNV-01 완료 (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 5 — REFACTOR | `refactor` | Report 12 | 대기 (번들 추가 후 또는 스멜 발생 시) |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 13 | **진행 중** — 사이클 1: D-CNV-01 GREEN 완료; D-CNV-02 RED 완료 |
 | 7 — P1 | `new_features` (선택) | — | 대기 |
+
+### ARRR 묶음 진행 (사이클 1 — Track B P0)
+
+| 묶음 | Test ID | RED | GREEN | REFACTOR | Report |
+|------|---------|-----|-------|----------|--------|
+| 1 | D-CNV-01 `to_meter` | **완료** `a38dff6` · Issue [#3](https://github.com/olive-su/UnitConverter_02/issues/3) | **완료** `2b0f01e` · Issue [#5](https://github.com/olive-su/UnitConverter_02/issues/5) | — | 06, 07 |
+| 2 | D-CNV-02 `convert_all` | **완료** (로컬, 미커밋) | **다음** | — | 08 |
+| 3 | D-CNV-03 feet→yard meter 경유 | 대기 | — | — | — |
+
+`main` 대상 열린 PR (머지 전): #2 (`spec`), #4 (`red`), #6 (`green`). `main`은 `a4a8f45` 유지.
 
 ### 브랜치 SSOT
 
@@ -99,9 +109,9 @@ main → spec → red → green → refactor → (사이클 반복) → new_feat
 - `guide/` 인덱스 + 보강된 이중 언어 가이드 6개(영문 슬러그).
 - 파일별 명세는 12장 참고.
 
-### Phase 1 — Spec (현재)
+### Phase 1 — Spec (완료)
 
-브랜치: `spec`. 명시적 범위 없으면 `src/` 구현·pytest 실행 금지.
+브랜치: `spec`. `cb868da`로 납품. PR 리뷰 수정 요청 시에만 추가 작업.
 
 산출물:
 
@@ -123,7 +133,9 @@ Git 게이트 (Phase 2 스캐폴딩 후 `spec`에서 단일 통합 PR):
 - 이슈: `spec: PRD, Mom Test evidence, ARRR cursor harness, and project scaffolding`
 - `main` 대상 PR, 리뷰어(9장).
 
-### Phase 2 — Scaffolding (`spec`, spec PR 전)
+### Phase 2 — Scaffolding (완료)
+
+Phase 1과 함께 `spec`에 납품 (`cb868da`).
 
 - `pyproject.toml`: `[tool.pytest.ini_options]`의 `testpaths`, `pythonpath`, 선택 `[dev]=pytest`.
 - [guide/04_target-architecture.ko.md](guide/04_target-architecture.ko.md) 골격:
@@ -134,7 +146,9 @@ Git 게이트 (Phase 2 스캐폴딩 후 `spec`에서 단일 통합 PR):
 
 ### Phase 3 — RED Ask + Skeleton (`red` 브랜치)
 
-- `spec` PR 머지 후: `main`에서 `git checkout -b red`.
+- **D-CNV-01 완료**: `tests/entity/test_d_cnv_01.py`, Report 06, 커밋 `a38dff6`.
+- **D-CNV-02 완료**: `tests/entity/test_d_cnv_02.py`, Report 08 (커밋 대기).
+- `spec` PR 머지 후: `main`에서 `git checkout -b red` (팀 플로우에 따라 묶음별 브랜치 유지 가능).
 - [guide/06_dualtrack-red-design.ko.md](guide/06_dualtrack-red-design.ko.md) Dual-Track RED.
 - 워크플로: `/red-test-plan` → `/red-skeleton`. Track B 우선.
 - RED 규칙: `src/` 변경 금지, `pytest.fail("RED: ...")` 허용, skip/xfail 금지, 1 RED 묶음 = 1 커밋.
@@ -142,6 +156,7 @@ Git 게이트 (Phase 2 스캐폴딩 후 `spec`에서 단일 통합 PR):
 
 ### Phase 4 — GREEN (`green` 브랜치)
 
+- **D-CNV-01 완료**: `src/entity/converter.py` (`to_meter`), Report 07, 커밋 `2b0f01e`, pytest 1 passed.
 - `red` PR 머지 후: `main`에서 `git checkout -b green`.
 - `/green-minimal` → `/golden-master`.
 - 최소 구현만; 안정 출력에 Golden Master.
@@ -288,5 +303,7 @@ UnitConverter_02/
 
 ## 13. 현재 포커스
 
-- **다음 실행**: Phase 1 Spec (Mom Test), 브랜치 `spec`.
-- **진입 프롬프트**: [docs/MASTER_PROMPT.ko.md](docs/MASTER_PROMPT.ko.md).
+- **진행**: Phase 0~2 완료; D-CNV-01 RED+GREEN 완료; **D-CNV-02 RED** 완료 (로컬).
+- **로컬 브랜치**: `red`. 열린 PR: #2, #4, #6 → `main` (머지·리뷰 대기).
+- **다음 실행**: D-CNV-02 **GREEN** on `green` — `/green-minimal` → `convert_all` 최소 구현.
+- **진입 프롬프트**: [docs/MASTER_PROMPT.ko.md](docs/MASTER_PROMPT.ko.md) (Spec); ARRR는 슬래시 커맨드.
