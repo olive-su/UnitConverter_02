@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **Done** |
 | 1 — Spec | `spec` | Report 01~05 | **Done** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **Done** (in `cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~18 | **Cycle 1 done** · **Cycle 2 Track A P0 RED done** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 3 — RED | `red` | Report 06~19 | **Cycle 1 done** · **Cycle 2 Track A P0 RED done** · **Cycle 3 Track B P1 D-REG-01 RED** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
 | 4 — GREEN | `green` | Report 07~15 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01·02·03 GREEN (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
 | 5 — REFACTOR | `refactor` | Report 13~14 | **Cycle 1 done** — P0 `6219a81` (pushed; PR pending) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 18+ | **Cycle 1 complete** · **Cycle 2 in progress** — Track A P0 RED done; U-OUT-01 GREEN next |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 19+ | **Cycle 1 complete** · **Cycle 2 Track A P0 RED done** · **Cycle 3 Track B P1 in progress** — D-REG-01 RED done |
 | 7 — P1 | `new_features` (optional) | — | Pending |
 
 ### ARRR bundle progress (Cycle 1 — Track B P0)
@@ -95,7 +95,13 @@ flowchart TB
 | 1 | U-IN-01 empty → format error | **Done** `6d562c8` | **Done** `f9af63f` | — | 15, 13 |
 | 2 | U-IN-02 no colon | **Done** `371e3fb` | **Done** `d91cb15` | — | 16, 14 |
 | 3 | U-IN-03 negative | **Done** `f3cfa08` | **Done** `cb7faa5` | — | 17, 15 |
-| 4 | U-OUT-01 output lines | **Done** | **Next** | — | 18 |
+| 4 | U-OUT-01 output lines | **Done** `f97e29d` | **Done** | — | 18, 16 |
+
+### ARRR bundle progress (Cycle 3 — Track B P1)
+
+| Bundle | Test ID | RED | GREEN | REFACTOR | Reports |
+|--------|---------|-----|-------|----------|---------|
+| 1 | D-REG-01 register cubit | **Done** | **Next** | — | 19 |
 
 Open PRs to `main` (not merged): #2 (`spec`), #4 (`red`), #6 (`green`). `refactor` @ `6219a81` pushed. `main` at `a4a8f45`.
 
@@ -162,7 +168,8 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 - **U-IN-01 done**: `tests/boundary/test_u_in_01.py`, Report 15, commit `6d562c8`.
 - **U-IN-02 done**: `tests/boundary/test_u_in_02.py`, Report 16, commit `371e3fb`.
 - **U-IN-03 done**: `tests/boundary/test_u_in_03.py`, Report 17, commit `f3cfa08`.
-- **U-OUT-01 done**: `tests/boundary/test_u_out_01.py`, Report 18.
+- **U-OUT-01 done**: `tests/boundary/test_u_out_01.py`, Report 18, commit `f97e29d`.
+- **D-REG-01 done**: `tests/entity/test_d_reg_01.py`, Report 19.
 - After `spec` PR merged: `git checkout -b red` from `main` (or continue bundle branches per team flow).
 - Dual-Track RED from [guide/06_dualtrack-red-design.md](guide/06_dualtrack-red-design.md).
 - Workflow: `/red-test-plan` → `/red-skeleton` per bundle. Track B first.
@@ -331,7 +338,7 @@ UnitConverter_02/
 
 ## 13. Current focus
 
-- **Progress**: **Cycle 1 complete** (D-CNV-01~03 RED+GREEN+Golden+REFACTOR P0). **Cycle 2 partial** — Track A P0 RED complete (U-IN-01~03·U-OUT-01); U-IN-01·02·03 GREEN done.
+- **Progress**: **Cycle 1 complete**. **Cycle 2 Track A P0 RED complete** (U-IN/OUT). **Cycle 3 Track B P1** — D-REG-01 RED done (cubit 0.4572 register → convertible; EXT-02, NFR-01).
 - **Local branch**: `red`. Open PRs: #2, #4, #6 → `main`; `refactor` @ `6219a81` pushed (PR pending).
-- **Next execution**: U-OUT-01 **GREEN** on `green` — `/green-minimal` → `format_output` → 3+ lines (FR-02).
+- **Next execution**: D-REG-01 **GREEN** on `green` — `/green-minimal` → `unit_registry.register` + `to_meter("cubit", 1)` → 0.4572 m.
 - **Entry prompt**: [docs/MASTER_PROMPT.md](docs/MASTER_PROMPT.md) (Spec); use slash commands for ARRR cycles.
