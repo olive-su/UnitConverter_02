@@ -1,0 +1,34 @@
+---
+description: Session start, save, and handoff protocol to prevent context loss across sessions.
+alwaysApply: true
+---
+
+# Session History Protocol
+
+Goal: never lose work when a session ends or context grows too long.
+
+## On Session Start
+- Read `.cursor/rules/00-ground-rules.mdc`.
+- Read `harness/sessions/INDEX.md`.
+- Read the most recent session log listed in the index.
+- Restate the current goal and open items before acting.
+
+## During Work
+- Keep a running summary in memory: goal, key decisions, files changed, commits.
+- When a logical unit completes, create a commit (see commit policy).
+
+## When to Save a Session Log
+- Context is getting long and a session swap is likely.
+- A milestone or task is complete.
+- Before ending the session.
+
+## How to Save
+- Copy `harness/sessions/_template.md` to `harness/sessions/YYYY-MM-DD-NN-<slug>.md`.
+- Also create the Korean version `...-<slug>.ko.md`.
+- Fill in: goal, decisions, changes, commit hashes, open items, next steps.
+- Add a new row to `harness/sessions/INDEX.md` and `INDEX.ko.md` (newest first).
+- Commit with `docs: add session log <slug>`.
+
+## Handoff Contract
+- The next session must be able to resume using only: ground rules + latest session log.
+- Write "Next steps" as concrete, actionable bullets.

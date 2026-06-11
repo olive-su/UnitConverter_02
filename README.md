@@ -1,83 +1,117 @@
+# UnitConverter_02
 
-## Unit Converter (Python)
-![unit-converter](./unit-converter.jpg)
-### Overview
-- 사용자가 입력한 길이(`단위:값`)를 기반으로, 해당 값을 다른 모든 단위로 변환해 출력하는 프로그램.
-- 새로운 단위를 추가할 때 기존 코드의 변경이 최소화되도록 설계한다.
-- 각 단위 변환 로직은 테스트 코드로 검증한다.
+Korean version: [README.ko.md](README.ko.md).
 
-### 가상환경 설정 및 실행
+| Field | Value |
+|-------|-------|
+| Branch | `green` |
+| Phase | **Green** — minimal implementation, all scoped tests passing |
+| Remote | [olive-su/UnitConverter_02](https://github.com/olive-su/UnitConverter_02) |
+| PR | [#6 green → main](https://github.com/olive-su/UnitConverter_02/pull/6) |
+| Latest commit | `c189a95` — U-OUT-04 table output (Track A) |
+
+---
+
+## What this branch is
+
+This is the **Green** branch: the smallest production code that satisfies Cycle 1–4 RED contracts. **15 tests pass** (entity 5, boundary 7, golden 3). Structure follows SRP/OCP from `guide/04_target-architecture.md`.
+
+## Quick start
+
 ```bash
-# 가상환경 생성
-python -m venv venv
-
-# 가상환경 활성화 (Windows)
-venv\Scripts\activate
-
-# 가상환경 활성화 (macOS/Linux)
-source venv/bin/activate
-
-# 실행
-python UnitConverter.py
-
-# 가상환경 비활성화
-deactivate
+pip install -e ".[dev]"
+python -m pytest -q
+# Expected: 15 passed
 ```
 
-### 기본 요구사항
-1. 사용자 입력 예시:
-   ```
-   meter:2.5
-   ```
-   → 출력:
-   ```
-   2.5 meter = 8.2 feet
-   2.5 meter = 2.7 yard
-   ...
-   ```
+## Implementation map
 
-2. 현재 지원 단위:
-   - meter
-   - feet
-   - yard
+### Entity (`src/entity/`)
 
-3. 새로운 단위가 추가될 때도 기존 코드의 변경이 최소화되도록 할 것.
+| Module | Trace | Role |
+|--------|-------|------|
+| `converter.py` | D-CNV-01–03 / FR-02 | `to_meter`, `convert_all` via meter SSOT |
+| `unit_registry.py` | D-REG-01 / EXT-02 | dynamic unit registration |
 
-4. 각 단위 간 변환이 정확히 계산되도록 테스트 코드를 작성할 것.
+### Infrastructure (`src/infrastructure/`)
 
-### 비즈니스 로직
+| Module | Trace | Role |
+|--------|-------|------|
+| `config_loader.py` | D-CFG-01 / EXT-01 | load ratios from JSON; validate errors |
+
+### Boundary (`src/boundary/`)
+
+| Module | Trace | Role |
+|--------|-------|------|
+| `input_parser.py` | U-IN-01–03 / FR-04–05 | parse and validate `unit:value` |
+| `output_formatter.py` | U-OUT-01–04 / FR-02, EXT-03 | `lines`, `json`, `csv`, `table` formats |
+
+## Test summary
+
+| Area | Count | Files |
+|------|-------|-------|
+| Entity | 5 | `test_d_cnv_*`, `test_d_reg_01`, `test_d_cfg_01` |
+| Boundary | 7 | `test_u_in_*`, `test_u_out_*` (incl. U-OUT-03 csv) |
+| Golden | 3 | `test_golden_cycle1_track_b.py` + JSON baselines |
+
+Conversion ratios (meter hub):
+
 - `1 meter = 3.28084 feet`
 - `1 meter = 1.09361 yard`
-- feet/yard 간의 비율은 meter 기반으로 계산.
 
-### 품질 요구사항
-- OCP를 만족하는 설계
-- SRP를 만족하는 클래스 구성
-- 입력 값 검증 (음수, 잘못된 형식, 없는 단위)
+## Cycle progress (RED + GREEN complete)
 
-### 추가 요구사항
-- **설정 외부화**
-   - 변환 비율을 외부 설정 파일(JSON/YAML)에서 로드
-- **동적으로 단위와 비율을 등록할 수 있도록 한다**
-   - 사용자 입력으로 `1 cubit = 0.4572 meter`를 등록하고 사용 가능
-- **출력 포맷 선택 기능** 
-   - JSON / CSV / 표 형태 출력
+| Cycle | Track | Bundles |
+|-------|-------|---------|
+| 1 | B | D-CNV-01, D-CNV-02, D-CNV-03 + golden master |
+| 2 | A | U-IN-01, U-IN-02, U-IN-03 |
+| 3 | B | D-REG-01, D-CFG-01 |
+| 4 | A | U-OUT-01, U-OUT-02, U-OUT-03, U-OUT-04 |
 
+## Example usage (library)
 
-## 생성형AI를 활용한 Activities (6 시간)
+```python
+from src.entity.converter import convert_all
+from src.boundary.output_formatter import format_output
 
-1. 문제 코드 및 기본 요구사항 분석 (0.5시간)
-   - 기본 코드구조, 로직 이해
-2. 기본 요구사항 및 품질 요구사항 구현 (2시간)
-   - OCP를 만족하는 인터페이스 구현 
-   - SRP를 만족하도록 클래스 구현 
-   - 입력값 검증을 위한 구현
-3. TC 구현 (0.5시간)
-   - 단위변환 기능 검증 및 입력 값 검증 TC 작성 
-4. 추가 요구사항 구현 (2시간)
-   - 3개 요구사항 구현 및 TC 작성 
-5. 회고 및 발표 (1시간)
-   - 실습 목표와 달성도
-   - AI를 어떻게 활용했나? 도움이 된 순간과 한계는?
-   - TC를 추가해보면서 개선에 미친 영향, TC 작성 팁
-   - 클린코드와 리팩토링에서 느낀 장점과 어려운점
+result = convert_all("meter", 2.5)
+print(format_output(result, output_format="json"))
+```
+
+## Branch map
+
+```text
+spec  → requirements
+red   → 11 failing tests (no src)
+green → you are here (15 passing, full Cycle 1–4)
+refactor → Cycle 1 structure cleanup (partial; merge green first)
+```
+
+## Project layout
+
+```text
+src/
+├── entity/converter.py, unit_registry.py
+├── boundary/input_parser.py, output_formatter.py
+└── infrastructure/config_loader.py
+tests/
+├── entity/, boundary/
+└── golden/cycle1_track_b/
+```
+
+## Docs and workflow
+
+- SSOT build order: `WORK_PLAN.md`
+- Requirements: `docs/PRD.md`
+- Agent harness: `AGENTS.md`
+- Reports: `Report/` (phase exports)
+
+## Next steps
+
+- Open PR #6 merge to `main`
+- Optional: `/refactor-smell` on `refactor` after merging `green`
+- Optional: expand golden master coverage
+
+## Legacy
+
+`UnitConverter.py` remains as the original seed; new CLI should use `src/` modules.

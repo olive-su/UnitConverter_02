@@ -1,0 +1,12 @@
+{
+  "input": {
+    "source_unit": "feet",
+    "value": 3.28084
+  },
+  "output": {
+    "feet": 3.28084,
+    "meter": 1.0,
+    "yard": 1.09361
+  },
+  "test_id": "D-CNV-03"
+}

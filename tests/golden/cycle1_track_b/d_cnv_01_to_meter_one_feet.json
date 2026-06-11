@@ -1,0 +1,10 @@
+{
+  "input": {
+    "unit": "feet",
+    "value": 1.0
+  },
+  "output": {
+    "meters": 0.3047999902464003
+  },
+  "test_id": "D-CNV-01"
+}
