@@ -13,7 +13,7 @@ English version: [WORK_PLAN.md](WORK_PLAN.md).
   - 가이드 파일명: 영문 슬러그.
   - REFACTOR 브랜치명: `refactor` (`refactoring` 아님).
 - 구조/규칙 참고 프로젝트: `C:\Users\usejen_id\workspace\MagicSquare_1004`.
-- 원격: `https://github.com/olive-su/UnitConverter_02.git`. 로컬 브랜치: `red` (사이클 3 — D-REG-01 RED 완료).
+- 원격: `https://github.com/olive-su/UnitConverter_02.git`. 로컬 브랜치: `red` (사이클 3 — D-CFG-01 RED 완료).
 
 ## 2. 입력 자료
 
@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **완료** |
 | 1 — Spec | `spec` | Report 01~05 | **완료** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **완료** (`cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~19 | **사이클 1 완료** · **사이클 2 Track A P0 RED 완료** · **사이클 3 Track B P1 D-REG-01 RED** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
-| 4 — GREEN | `green` | Report 07~15 | **사이클 1 완료** · **사이클 2 부분** — U-IN-01·02·03 GREEN (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 3 — RED | `red` | Report 06~20 | **사이클 1 완료** · **사이클 2 Track A P0 RED 완료** · **사이클 3 Track B P1 RED 진행 중** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 4 — GREEN | `green` | Report 07~17 | **사이클 1 완료** · **사이클 2 Track A P0 GREEN 완료** · **사이클 3 D-REG-01 GREEN** (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
 | 5 — REFACTOR | `refactor` | Report 13~14 | **사이클 1 완료** — P0 `6219a81` (푸시됨; PR 대기) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 19+ | **사이클 1 완료** · **사이클 2 Track A P0 RED 완료** · **사이클 3 Track B P1 진행 중** — D-REG-01 RED 완료 |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 20+ | **사이클 1 완료** · **사이클 2 Track A P0 완료** · **사이클 3 Track B P1 진행 중** — D-CFG-01 RED 완료 |
 | 7 — P1 | `new_features` (선택) | — | 대기 |
 
 ### ARRR 묶음 진행 (사이클 1 — Track B P0)
@@ -101,7 +101,8 @@ flowchart TB
 
 | 묶음 | Test ID | RED | GREEN | REFACTOR | Report |
 |------|---------|-----|-------|----------|--------|
-| 1 | D-REG-01 cubit 등록 | **완료** | **다음** | — | 19 |
+| 1 | D-REG-01 cubit 등록 | **완료** `96f7931` | **완료** `71352d3` | — | 19, 17 |
+| 2 | D-CFG-01 깨진 JSON → ConfigError | **완료** | **다음** | — | 20 |
 
 `main` 대상 열린 PR (머지 전): #2, #4, #6. `refactor` @ `6219a81` 푸시됨. `main`은 `a4a8f45`.
 
@@ -169,7 +170,8 @@ Phase 1과 함께 `spec`에 납품 (`cb868da`).
 - **U-IN-02 완료**: `tests/boundary/test_u_in_02.py`, Report 16, 커밋 `371e3fb`.
 - **U-IN-03 완료**: `tests/boundary/test_u_in_03.py`, Report 17, 커밋 `f3cfa08`.
 - **U-OUT-01 완료**: `tests/boundary/test_u_out_01.py`, Report 18, 커밋 `f97e29d`.
-- **D-REG-01 완료**: `tests/entity/test_d_reg_01.py`, Report 19.
+- **D-REG-01 완료**: `tests/entity/test_d_reg_01.py`, Report 19, 커밋 `96f7931`.
+- **D-CFG-01 완료**: `tests/entity/test_d_cfg_01.py`, Report 20.
 - `spec` PR 머지 후: `main`에서 `git checkout -b red` (팀 플로우에 따라 묶음별 브랜치 유지 가능).
 - [guide/06_dualtrack-red-design.ko.md](guide/06_dualtrack-red-design.ko.md) Dual-Track RED.
 - 워크플로: `/red-test-plan` → `/red-skeleton`. Track B 우선.
@@ -298,6 +300,9 @@ ARRR 사이클 슬래시 워크플로:
 - `red: U-IN-03 failing skeleton (Track A)`
 - `green: minimal parse_input negative for U-IN-03`
 - `red: U-OUT-01 failing skeleton (Track A)`
+- `red: D-REG-01 failing skeleton (Track B)`
+- `green: minimal register for D-REG-01 (Track B)`
+- `red: D-CFG-01 failing skeleton (Track B)`
 
 ## 10. 프로젝트 레이아웃
 
@@ -339,7 +344,7 @@ UnitConverter_02/
 
 ## 13. 현재 포커스
 
-- **진행**: **사이클 1 완료**. **사이클 2 Track A P0 RED 완료** (U-IN/OUT). **사이클 3 Track B P1** — D-REG-01 RED 완료 (cubit 0.4572 등록 후 변환; EXT-02, NFR-01).
+- **진행**: **사이클 1 완료**. **사이클 2 Track A P0 RED 완료**. **사이클 3 Track B P1** — D-REG-01 RED+GREEN 완료; **D-CFG-01 RED 완료** (깨진 JSON → `ConfigError`; EXT-01).
 - **로컬 브랜치**: `red`. 열린 PR: #2, #4, #6; `refactor` @ `6219a81` 푸시됨 (PR 대기).
-- **다음 실행**: D-REG-01 **GREEN** on `green` — `/green-minimal` → `unit_registry.register` + `to_meter("cubit", 1)` → 0.4572 m.
+- **다음 실행**: D-CFG-01 **GREEN** on `green` — `/green-minimal` → `load_units_json` + `ConfigError`.
 - **진입 프롬프트**: [docs/MASTER_PROMPT.ko.md](docs/MASTER_PROMPT.ko.md) (Spec); ARRR는 슬래시 커맨드.
