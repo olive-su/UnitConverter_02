@@ -9,3 +9,5 @@ def parse_input(raw: str) -> tuple[str, float]:
     """Parse ``unit:value`` input; raise FormatError on invalid format."""
     if raw == "":
         raise FormatError("format error")
+    if ":" not in raw:
+        raise FormatError("format error")
