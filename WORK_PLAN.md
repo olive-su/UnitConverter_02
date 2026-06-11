@@ -13,7 +13,7 @@ Single source of truth for what to build, in what order, and under which rules. 
   - Guide filenames: English slugs.
   - REFACTOR branch name: `refactor` (not `refactoring`).
 - Reference project for structure and conventions: `C:\Users\usejen_id\workspace\MagicSquare_1004`.
-- Remote: `https://github.com/olive-su/UnitConverter_02.git`. Local branch: `red` (Cycle 1 — D-CNV-02 RED done).
+- Remote: `https://github.com/olive-su/UnitConverter_02.git`. Local branch: `red` (Cycle 1 — D-CNV-03 RED done).
 
 ## 2. Inputs
 
@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **Done** |
 | 1 — Spec | `spec` | Report 01~05 | **Done** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **Done** (in `cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~08 | **Cycle 1 partial** — D-CNV-01·02 RED done (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open; D-CNV-02 uncommitted) |
-| 4 — GREEN | `green` | Report 08~09 | **Cycle 1 partial** — D-CNV-01 done (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
-| 5 — REFACTOR | `refactor` | Report 12 | Pending (defer until more bundles or smells) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 13 | **In progress** — Cycle 1: D-CNV-01 GREEN done; D-CNV-02 RED done |
+| 3 — RED | `red` | Report 06~10 | **Cycle 1 partial** — D-CNV-01·02·03 RED done (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 4 — GREEN | `green` | Report 07~09 | **Cycle 1 partial** — D-CNV-01·02 GREEN done (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 5 — REFACTOR | `refactor` | Report 12 | Pending (defer until Cycle 1 GREEN complete or smells) |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 13 | **In progress** — Cycle 1: D-CNV-01·02 RED+GREEN done; D-CNV-03 RED done |
 | 7 — P1 | `new_features` (optional) | — | Pending |
 
 ### ARRR bundle progress (Cycle 1 — Track B P0)
@@ -84,8 +84,8 @@ flowchart TB
 | Bundle | Test ID | RED | GREEN | REFACTOR | Reports |
 |--------|---------|-----|-------|----------|---------|
 | 1 | D-CNV-01 `to_meter` | **Done** `a38dff6` · Issue [#3](https://github.com/olive-su/UnitConverter_02/issues/3) | **Done** `2b0f01e` · Issue [#5](https://github.com/olive-su/UnitConverter_02/issues/5) | — | 06, 07 |
-| 2 | D-CNV-02 `convert_all` | **Done** (local, uncommitted) | **Next** | — | 08 |
-| 3 | D-CNV-03 feet→yard via meter | Pending | — | — | — |
+| 2 | D-CNV-02 `convert_all` | **Done** `fe7d672` · Issue [#7](https://github.com/olive-su/UnitConverter_02/issues/7) | **Done** `0b3cd3e` | — | 08, 09 |
+| 3 | D-CNV-03 feet→yard via meter | **Done** | **Next** | — | 10 |
 
 Open PRs to `main` (not merged as of last update): #2 (`spec`), #4 (`red`), #6 (`green`). `main` still at `a4a8f45`.
 
@@ -147,7 +147,8 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 ### Phase 3 — RED Ask + Skeleton (`red` branch)
 
 - **D-CNV-01 done**: `tests/entity/test_d_cnv_01.py`, Report 06, commit `a38dff6`.
-- **D-CNV-02 done**: `tests/entity/test_d_cnv_02.py`, Report 08 (commit pending).
+- **D-CNV-02 done**: `tests/entity/test_d_cnv_02.py`, Report 08, commit `fe7d672`.
+- **D-CNV-03 done**: `tests/entity/test_d_cnv_03.py`, Report 10.
 - After `spec` PR merged: `git checkout -b red` from `main` (or continue bundle branches per team flow).
 - Dual-Track RED from [guide/06_dualtrack-red-design.md](guide/06_dualtrack-red-design.md).
 - Workflow: `/red-test-plan` → `/red-skeleton` per bundle. Track B first.
@@ -156,7 +157,8 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 
 ### Phase 4 — GREEN (`green` branch)
 
-- **D-CNV-01 done**: `src/entity/converter.py` (`to_meter`), Report 07, commit `2b0f01e`, pytest 1 passed.
+- **D-CNV-01 done**: `src/entity/converter.py` (`to_meter`), Report 07, commit `2b0f01e`.
+- **D-CNV-02 done**: `convert_all` minimal impl, Report 09, commit `0b3cd3e`, pytest 2 passed.
 - After `red` PR merged: `git checkout -b green` from `main`.
 - `/green-minimal` → `/golden-master` for passing tests.
 - Minimal implementation only; Golden Master for stable output.
@@ -261,6 +263,8 @@ Example titles:
 - `spec: add PRD, Mom Test evidence, ARRR harness, and scaffolding`
 - `red: D-CNV-01 failing skeleton (Track B)`
 - `green: minimal to_meter for D-CNV-01`
+- `green: minimal convert_all for D-CNV-02`
+- `red: D-CNV-03 failing skeleton (Track B)`
 - `refactor: extract ratio constants (contract unchanged)`
 
 ## 10. Project layout
@@ -303,7 +307,7 @@ UnitConverter_02/
 
 ## 13. Current focus
 
-- **Progress**: Phases 0–2 complete; D-CNV-01 RED+GREEN done; **D-CNV-02 RED** done (local).
+- **Progress**: Phases 0–2 complete; D-CNV-01·02 RED+GREEN done; **D-CNV-03 RED** done (local).
 - **Local branch**: `red`. Open PRs: #2, #4, #6 → `main` (awaiting merge/review).
-- **Next execution**: D-CNV-02 **GREEN** on `green` — `/green-minimal` → `convert_all` minimal impl.
+- **Next execution**: D-CNV-03 **GREEN** on `green` — `/green-minimal` → `convert_all`에 `yard` 추가.
 - **Entry prompt**: [docs/MASTER_PROMPT.md](docs/MASTER_PROMPT.md) (Spec); use slash commands for ARRR cycles.
