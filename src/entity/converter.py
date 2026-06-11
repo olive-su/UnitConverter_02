@@ -10,3 +10,12 @@ def to_meter(unit: str, value: float) -> float:
     if unit == "feet":
         return value / METER_TO_FEET
     raise ValueError(f"unknown unit: {unit}")
+
+
+def convert_all(source_unit: str, value: float) -> dict[str, float]:
+    """Convert a value to all registered units via meter SSOT."""
+    meters = to_meter(source_unit, value)
+    return {
+        "meter": meters,
+        "feet": meters * METER_TO_FEET,
+    }
