@@ -74,9 +74,9 @@ flowchart TB
 | 1 — Spec | `spec` | Report 01~05 | **Done** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **Done** (in `cb868da`, PR #2) |
 | 3 — RED | `red` | Report 06~20 | **Cycle 1 done** · **Cycle 2 Track A P0 RED done** · **Cycle 3 Track B P1 RED done** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
-| 4 — GREEN | `green` | Report 07~20 | **Cycle 1–3 GREEN done** · **Cycle 4 Track A P1 in progress** (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 4 — GREEN | `green` | Report 07~21 | **Cycle 1–4 GREEN complete** (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
 | 5 — REFACTOR | `refactor` | Report 13~14 | **Cycle 1 done** — P0 `6219a81` (pushed; PR pending) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 21+ | **Cycle 1–3 complete** · **Cycle 4 Track A P1 in progress** — U-OUT-03 GREEN done |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 22+ | **Cycle 1–4 complete** — EXT-03 json/csv/table GREEN done |
 | 7 — P1 | `new_features` (optional) | — | Pending |
 
 ### ARRR bundle progress (Cycle 1 — Track B P0)
@@ -109,7 +109,8 @@ flowchart TB
 | Bundle | Test ID | RED | GREEN | REFACTOR | Reports |
 |--------|---------|-----|-------|----------|---------|
 | 1 | U-OUT-02 format=json | **Done** `df00649` | **Done** `952a519` | — | 21, 19 |
-| 2 | U-OUT-03 format=csv | — | **Done** | — | 20 |
+| 2 | U-OUT-03 format=csv | — | **Done** `a259b29` | — | 20 |
+| 3 | U-OUT-04 format=table | **Done** `e9db033` | **Done** | — | 22, 21 |
 
 Open PRs to `main` (not merged): #2 (`spec`), #4 (`red`), #6 (`green`). `refactor` @ `6219a81` pushed. `main` at `a4a8f45`.
 
@@ -193,7 +194,8 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 - **D-REG-01 done**: `src/entity/unit_registry.py` (`register`), Report 17, commit `71352d3`, pytest 11 passed.
 - **D-CFG-01 done**: `src/infrastructure/config_loader.py` (`load_units_json`), Report 18, commit `9cf325a`, pytest 12 passed.
 - **U-OUT-02 done**: `format_output` JSON branch, Report 19, commit `952a519`, pytest 13 passed.
-- **U-OUT-03 done**: `format_output` CSV branch, Report 20, pytest 14 passed.
+- **U-OUT-03 done**: `format_output` CSV branch, Report 20, commit `a259b29`, pytest 14 passed.
+- **U-OUT-04 done**: `format_output` table branch, Report 21, pytest 15 passed.
 - After `red` PR merged: `git checkout -b green` from `main`.
 - `/green-minimal` → `/golden-master` for passing tests.
 
@@ -312,6 +314,7 @@ Example titles:
 - `green: minimal config load for D-CFG-01 (Track B)`
 - `green: minimal json output for U-OUT-02 (Track A)`
 - `green: minimal csv output for U-OUT-03 (Track A)`
+- `green: minimal table output for U-OUT-04 (Track A)`
 
 ## 10. Project layout
 
@@ -353,7 +356,7 @@ UnitConverter_02/
 
 ## 13. Current focus
 
-- **Progress**: **Cycle 1–3 complete**. **Cycle 4 Track A P1 in progress** — U-OUT-02·03 GREEN done (`json`/`csv`; EXT-03).
+- **Progress**: **Cycle 1–4 complete** — all ARRR bundles RED+GREEN (`guide/06` + Cycle 4 EXT-03 json/csv/table).
 - **Local branch**: `green`. Open PRs: #2, #4, #6 → `main`; `refactor` @ `6219a81` pushed (PR pending).
-- **Next execution**: U-OUT-04 **table** — RED on `red` then GREEN (Cycle 4 마지막 묶음).
+- **Next execution**: PR merge to `main`; optional `/refactor-smell` or `/golden-master`.
 - **Entry prompt**: [docs/MASTER_PROMPT.md](docs/MASTER_PROMPT.md) (Spec); use slash commands for ARRR cycles.

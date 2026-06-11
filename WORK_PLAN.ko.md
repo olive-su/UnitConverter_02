@@ -74,9 +74,9 @@ flowchart TB
 | 1 — Spec | `spec` | Report 01~05 | **완료** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **완료** (`cb868da`, PR #2) |
 | 3 — RED | `red` | Report 06~20 | **사이클 1 완료** · **사이클 2 Track A P0 RED 완료** · **사이클 3 Track B P1 RED 완료** (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
-| 4 — GREEN | `green` | Report 07~20 | **사이클 1–3 GREEN 완료** · **사이클 4 Track A P1 진행 중** (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 4 — GREEN | `green` | Report 07~21 | **사이클 1–4 GREEN 완료** (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
 | 5 — REFACTOR | `refactor` | Report 13~14 | **사이클 1 완료** — P0 `6219a81` (푸시됨; PR 대기) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 21+ | **사이클 1–3 완료** · **사이클 4 Track A P1 진행 중** — U-OUT-03 GREEN 완료 |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 22+ | **사이클 1–4 완료** — EXT-03 json/csv/table GREEN 완료 |
 | 7 — P1 | `new_features` (선택) | — | 대기 |
 
 ### ARRR 묶음 진행 (사이클 1 — Track B P0)
@@ -109,7 +109,8 @@ flowchart TB
 | 묶음 | Test ID | RED | GREEN | REFACTOR | Report |
 |------|---------|-----|-------|----------|--------|
 | 1 | U-OUT-02 format=json | **완료** `df00649` | **완료** `952a519` | — | 21, 19 |
-| 2 | U-OUT-03 format=csv | — | **완료** | — | 20 |
+| 2 | U-OUT-03 format=csv | — | **완료** `a259b29` | — | 20 |
+| 3 | U-OUT-04 format=table | **완료** `e9db033` | **완료** | — | 22, 21 |
 
 `main` 대상 열린 PR (머지 전): #2, #4, #6. `refactor` @ `6219a81` 푸시됨. `main`은 `a4a8f45`.
 
@@ -193,7 +194,8 @@ Phase 1과 함께 `spec`에 납품 (`cb868da`).
 - **D-REG-01 완료**: `src/entity/unit_registry.py` (`register`), Report 17, 커밋 `71352d3`, pytest 11 passed.
 - **D-CFG-01 완료**: `src/infrastructure/config_loader.py` (`load_units_json`), Report 18, 커밋 `9cf325a`, pytest 12 passed.
 - **U-OUT-02 완료**: `format_output` JSON 분기, Report 19, 커밋 `952a519`, pytest 13 passed.
-- **U-OUT-03 완료**: `format_output` CSV 분기, Report 20, pytest 14 passed.
+- **U-OUT-03 완료**: `format_output` CSV 분기, Report 20, 커밋 `a259b29`, pytest 14 passed.
+- **U-OUT-04 완료**: `format_output` table 분기, Report 21, pytest 15 passed.
 - `red` PR 머지 후: `main`에서 `git checkout -b green`.
 - `/green-minimal` → `/golden-master`.
 
@@ -313,6 +315,7 @@ ARRR 사이클 슬래시 워크플로:
 - `green: minimal config load for D-CFG-01 (Track B)`
 - `green: minimal json output for U-OUT-02 (Track A)`
 - `green: minimal csv output for U-OUT-03 (Track A)`
+- `green: minimal table output for U-OUT-04 (Track A)`
 
 ## 10. 프로젝트 레이아웃
 
@@ -354,7 +357,7 @@ UnitConverter_02/
 
 ## 13. 현재 포커스
 
-- **진행**: **사이클 1–3 완료**. **사이클 4 Track A P1 진행 중** — U-OUT-02·03 GREEN 완료 (`json`/`csv`; EXT-03).
+- **진행**: **사이클 1–4 완료** — ARRR 묶음 RED+GREEN 전부 (`guide/06` + 사이클 4 EXT-03 json/csv/table).
 - **로컬 브랜치**: `green`. 열린 PR: #2, #4, #6; `refactor` @ `6219a81` 푸시됨 (PR 대기).
-- **다음 실행**: U-OUT-04 **table** — RED on `red` 후 GREEN (사이클 4 마지막 묶음).
+- **다음 실행**: PR `main` 머지; 선택 `/refactor-smell` 또는 `/golden-master`.
 - **진입 프롬프트**: [docs/MASTER_PROMPT.ko.md](docs/MASTER_PROMPT.ko.md) (Spec); ARRR는 슬래시 커맨드.
