@@ -1,6 +1,7 @@
 """Length conversion to meters (meter SSOT hub). Trace: FR-02."""
 
 METER_TO_FEET = 3.28084
+METER_TO_YARD = 1.09361
 
 
 def to_meter(unit: str, value: float) -> float:
@@ -18,4 +19,5 @@ def convert_all(source_unit: str, value: float) -> dict[str, float]:
     return {
         "meter": meters,
         "feet": meters * METER_TO_FEET,
+        "yard": meters * METER_TO_YARD,
     }

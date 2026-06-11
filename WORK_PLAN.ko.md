@@ -13,7 +13,7 @@ English version: [WORK_PLAN.md](WORK_PLAN.md).
   - 가이드 파일명: 영문 슬러그.
   - REFACTOR 브랜치명: `refactor` (`refactoring` 아님).
 - 구조/규칙 참고 프로젝트: `C:\Users\usejen_id\workspace\MagicSquare_1004`.
-- 원격: `https://github.com/olive-su/UnitConverter_02.git`. 로컬 브랜치: `green` (사이클 1 — D-CNV-02 GREEN 완료).
+- 원격: `https://github.com/olive-su/UnitConverter_02.git`. 로컬 브랜치: `green` (사이클 1 — D-CNV-03 GREEN 완료).
 
 ## 2. 입력 자료
 
@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **완료** |
 | 1 — Spec | `spec` | Report 01~05 | **완료** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **완료** (`cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~08 | **사이클 1 부분** — D-CNV-01·02 RED 완료 (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
-| 4 — GREEN | `green` | Report 07~09 | **사이클 1 부분** — D-CNV-01·02 GREEN 완료 (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
-| 5 — REFACTOR | `refactor` | Report 12 | 대기 (번들 추가 후 또는 스멜 발생 시) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 13 | **진행 중** — 사이클 1: D-CNV-01·02 RED+GREEN 완료 |
+| 3 — RED | `red` | Report 06~10 | **사이클 1 Track B 완료** — D-CNV-01·02·03 RED 완료 (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 4 — GREEN | `green` | Report 07~11 | **사이클 1 Track B 완료** — D-CNV-01·02·03 GREEN 완료 (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 5 — REFACTOR | `refactor` | Report 12 | **다음** (사이클 2 전 선택) |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 13 | **사이클 1 Track B 완료** — D-CNV-01·02·03 RED+GREEN 완료 |
 | 7 — P1 | `new_features` (선택) | — | 대기 |
 
 ### ARRR 묶음 진행 (사이클 1 — Track B P0)
@@ -85,7 +85,7 @@ flowchart TB
 |------|---------|-----|-------|----------|--------|
 | 1 | D-CNV-01 `to_meter` | **완료** `a38dff6` · Issue [#3](https://github.com/olive-su/UnitConverter_02/issues/3) | **완료** `2b0f01e` · Issue [#5](https://github.com/olive-su/UnitConverter_02/issues/5) | — | 06, 07 |
 | 2 | D-CNV-02 `convert_all` | **완료** `fe7d672` · Issue [#7](https://github.com/olive-su/UnitConverter_02/issues/7) | **완료** `0b3cd3e` | — | 08, 09 |
-| 3 | D-CNV-03 feet→yard meter 경유 | **다음** | — | — | — |
+| 3 | D-CNV-03 feet→yard meter 경유 | **완료** `840bfa4` | **완료** | — | 10, 11 |
 
 `main` 대상 오픈 PR (머지 전): #2 (`spec`), #4 (`red`), #6 (`green`). `main`은 `a4a8f45` 유지.
 
@@ -146,6 +146,7 @@ Git 게이트 (Phase 2 스캐폴딩 후 `spec`에서 단일 통합 PR):
 
 - **D-CNV-01 완료**: `tests/entity/test_d_cnv_01.py`, Report 06, 커밋 `a38dff6`.
 - **D-CNV-02 완료**: `tests/entity/test_d_cnv_02.py`, Report 08, 커밋 `fe7d672`.
+- **D-CNV-03 완료**: `tests/entity/test_d_cnv_03.py`, Report 10, 커밋 `840bfa4`.
 - `spec` PR 머지 후: `main`에서 `git checkout -b red` (또는 팀 플로우에 따라 묶음 브랜치 유지).
 - [guide/06_dualtrack-red-design.ko.md](guide/06_dualtrack-red-design.ko.md) Dual-Track RED.
 - 워크플로: `/red-test-plan` → `/red-skeleton`. Track B 우선.
@@ -155,7 +156,8 @@ Git 게이트 (Phase 2 스캐폴딩 후 `spec`에서 단일 통합 PR):
 ### Phase 4 — GREEN (`green` 브랜치)
 
 - **D-CNV-01 완료**: `src/entity/converter.py` (`to_meter`), Report 07, 커밋 `2b0f01e`.
-- **D-CNV-02 완료**: `convert_all` 최소 구현, Report 09, pytest 2 passed.
+- **D-CNV-02 완료**: `convert_all` 최소 구현, Report 09, 커밋 `0b3cd3e`.
+- **D-CNV-03 완료**: `convert_all`에 `yard` 추가, Report 11, pytest 3 passed.
 - `red` PR 머지 후: `main`에서 `git checkout -b green`.
 - `/green-minimal` → `/golden-master`.
 - 최소 구현만; 안정 출력에 Golden Master.
@@ -261,6 +263,7 @@ ARRR 사이클 슬래시 워크플로:
 - `red: D-CNV-01 failing skeleton (Track B)`
 - `green: minimal to_meter for D-CNV-01`
 - `green: minimal convert_all for D-CNV-02`
+- `green: minimal yard in convert_all for D-CNV-03`
 - `refactor: extract ratio constants (contract unchanged)`
 
 ## 10. 프로젝트 레이아웃
@@ -303,7 +306,7 @@ UnitConverter_02/
 
 ## 13. 현재 포커스
 
-- **진행**: Phase 0–2 완료; D-CNV-01·02 RED+GREEN 완료.
+- **진행**: Phase 0–2 완료; **사이클 1 Track B P0** (D-CNV-01·02·03) RED+GREEN 완료.
 - **로컬 브랜치**: `green`. 오픈 PR: #2, #4, #6 → `main` (머지/리뷰 대기).
-- **다음 실행**: D-CNV-03 **RED** on `red` (`feet`→`yard` meter 경유), 또는 `/golden-master`, 또는 요청 시 `green` 커밋/푸시.
+- **다음 실행**: `/golden-master`, `/refactor-smell`, 또는 **사이클 2** RED (U-IN-01 on `red`); 요청 시 `green` 커밋/푸시.
 - **진입 프롬프트**: [docs/MASTER_PROMPT.ko.md](docs/MASTER_PROMPT.ko.md) (Spec); ARRR 사이클은 슬래시 명령 사용.
