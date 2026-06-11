@@ -1,0 +1,30 @@
+---
+description: Agent team roles and architecture patterns. Apply when planning multi-step or delegated work.
+alwaysApply: false
+---
+
+# Agent Team and Patterns
+
+Cursor has no Claude Agent Teams runtime. The "team" is a set of role
+definitions plus an orchestrator that delegates via Cursor subagents (Task).
+
+## Roles
+- Orchestrator: plans, routes, and integrates. See `harness/agents/orchestrator.md`.
+- Architect: design, SOLID/OCP, interfaces. See `harness/agents/architect.md`.
+- Builder: implementation. See `harness/agents/builder.md`.
+- Test Engineer: tests and coverage. See `harness/agents/test-engineer.md`.
+- Reviewer: clean-code and quality review. See `harness/agents/reviewer.md`.
+- Doc Writer: bilingual docs. See `harness/agents/doc-writer.md`.
+
+## Architecture Patterns (mapped to Cursor)
+- Pipeline: sequential dependent steps in one session.
+- Fan-out/Fan-in: parallel independent subagents (Task), then merge.
+- Expert Pool: select the role doc that fits the context.
+- Producer-Reviewer: Builder produces, Reviewer subagent verifies.
+- Supervisor: Orchestrator distributes tasks dynamically via Task.
+- Hierarchical Delegation: subagents spawn sub-subagents (limited depth).
+
+## How to Use
+- Default to a single orchestrated session for small tasks.
+- Use subagents (Task) for parallel research or independent build/review.
+- Details and templates: `harness/patterns/architecture-patterns.md`.
