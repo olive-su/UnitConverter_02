@@ -1,83 +1,95 @@
+# UnitConverter_02
 
-## Unit Converter (Python)
-![unit-converter](./unit-converter.jpg)
-### Overview
-- 사용자가 입력한 길이(`단위:값`)를 기반으로, 해당 값을 다른 모든 단위로 변환해 출력하는 프로그램.
-- 새로운 단위를 추가할 때 기존 코드의 변경이 최소화되도록 설계한다.
-- 각 단위 변환 로직은 테스트 코드로 검증한다.
+Korean version: [README.ko.md](README.ko.md).
 
-### 가상환경 설정 및 실행
+| Field | Value |
+|-------|-------|
+| Branch | `refactor` |
+| Phase | **Refactor** — structure cleanup, same test contract |
+| Remote | [olive-su/UnitConverter_02](https://github.com/olive-su/UnitConverter_02) |
+| Latest commit | `6219a81` — extract unit ratio map (contract unchanged) |
+| Scope | **Cycle 1 Track B only** (D-CNV + golden) |
+
+---
+
+## What this branch is
+
+This is the **Refactor** branch: improve internal structure **without changing observable behavior**. The first refactor commit extracts hard-coded ratios into `src/entity/constants.py` and drives `converter.py` from map lookups instead of inline `if` branches.
+
+**6 tests pass** — Cycle 1 entity tests (3) plus golden master (3). Track A (parser/formatter) and Cycle 3–4 (registry, config, output formats) exist only on `green`; merge `green` before extending refactor here.
+
+## Quick start
+
 ```bash
-# 가상환경 생성
-python -m venv venv
-
-# 가상환경 활성화 (Windows)
-venv\Scripts\activate
-
-# 가상환경 활성화 (macOS/Linux)
-source venv/bin/activate
-
-# 실행
-python UnitConverter.py
-
-# 가상환경 비활성화
-deactivate
+pip install -e ".[dev]"
+python -m pytest -q
+# Expected: 6 passed
 ```
 
-### 기본 요구사항
-1. 사용자 입력 예시:
-   ```
-   meter:2.5
-   ```
-   → 출력:
-   ```
-   2.5 meter = 8.2 feet
-   2.5 meter = 2.7 yard
-   ...
-   ```
+## Refactor delta (vs Cycle 1 green)
 
-2. 현재 지원 단위:
-   - meter
-   - feet
-   - yard
+| Before | After |
+|--------|-------|
+| Ratios and branches inside `converter.py` | `constants.py`: `UNIT_TO_METER`, `METER_TO_UNIT` |
+| `if unit == "meter"` / `if unit == "feet"` | `dict.get` + dict comprehension in `convert_all` |
 
-3. 새로운 단위가 추가될 때도 기존 코드의 변경이 최소화되도록 할 것.
+Public functions unchanged:
 
-4. 각 단위 간 변환이 정확히 계산되도록 테스트 코드를 작성할 것.
+- `to_meter(unit, value) -> float`
+- `convert_all(source_unit, value) -> dict[str, float]`
 
-### 비즈니스 로직
-- `1 meter = 3.28084 feet`
-- `1 meter = 1.09361 yard`
-- feet/yard 간의 비율은 meter 기반으로 계산.
+## Source layout (this branch)
 
-### 품질 요구사항
-- OCP를 만족하는 설계
-- SRP를 만족하는 클래스 구성
-- 입력 값 검증 (음수, 잘못된 형식, 없는 단위)
+```text
+src/entity/
+├── constants.py   # ratio maps (new)
+└── converter.py     # map-driven conversion
+tests/entity/
+├── test_d_cnv_01.py
+├── test_d_cnv_02.py
+└── test_d_cnv_03.py
+tests/golden/cycle1_track_b/   # JSON baselines
+```
 
-### 추가 요구사항
-- **설정 외부화**
-   - 변환 비율을 외부 설정 파일(JSON/YAML)에서 로드
-- **동적으로 단위와 비율을 등록할 수 있도록 한다**
-   - 사용자 입력으로 `1 cubit = 0.4572 meter`를 등록하고 사용 가능
-- **출력 포맷 선택 기능** 
-   - JSON / CSV / 표 형태 출력
+No `src/boundary/`, `src/infrastructure/`, or `unit_registry.py` on this branch yet.
 
+## Test inventory
 
-## 생성형AI를 활용한 Activities (6 시간)
+| Test | Trace | Golden baseline |
+|------|-------|-----------------|
+| `test_d_cnv_01` | D-CNV-01 | `d_cnv_01_to_meter_one_feet.json` |
+| `test_d_cnv_02` | D-CNV-02 | `d_cnv_02_convert_all_meter_to_feet.json` |
+| `test_d_cnv_03` | D-CNV-03 | `d_cnv_03_convert_all_feet_to_yard.json` |
 
-1. 문제 코드 및 기본 요구사항 분석 (0.5시간)
-   - 기본 코드구조, 로직 이해
-2. 기본 요구사항 및 품질 요구사항 구현 (2시간)
-   - OCP를 만족하는 인터페이스 구현 
-   - SRP를 만족하도록 클래스 구현 
-   - 입력값 검증을 위한 구현
-3. TC 구현 (0.5시간)
-   - 단위변환 기능 검증 및 입력 값 검증 TC 작성 
-4. 추가 요구사항 구현 (2시간)
-   - 3개 요구사항 구현 및 TC 작성 
-5. 회고 및 발표 (1시간)
-   - 실습 목표와 달성도
-   - AI를 어떻게 활용했나? 도움이 된 순간과 한계는?
-   - TC를 추가해보면서 개선에 미친 영향, TC 작성 팁
-   - 클린코드와 리팩토링에서 느낀 장점과 어려운점
+## Branch map
+
+```text
+green     → full Cycle 1–4 (15 tests) — merge source of truth
+refactor  → you are here (Cycle 1 refactor only, 6 tests)
+```
+
+Recommended flow:
+
+1. Merge `green` → `main` (or into `refactor`).
+2. Rebase `refactor` onto latest `green`.
+3. Re-apply or extend refactors (`/refactor-smell`) while keeping all 15 tests green.
+
+## Refactor rules
+
+- No test changes unless the contract was wrong (fix on `red` first).
+- One refactor theme per commit; run full scoped pytest before commit.
+- Prefer extract-class/module over behavior change.
+
+References: `guide/05_arrr-7steps.md`, `WORK_PLAN.md` section 5.
+
+## Docs
+
+- Architecture target: `guide/04_target-architecture.md`
+- Legacy smells addressed: `guide/03_legacy-seed-analysis.md`
+- Agent harness: `AGENTS.md`
+
+## Next steps
+
+- Merge `green` into `refactor` to align with full implementation.
+- Continue refactor-smell passes (parser/formatter/registry) with tests green.
+- Open PR to `main` after full test suite passes on this branch.
