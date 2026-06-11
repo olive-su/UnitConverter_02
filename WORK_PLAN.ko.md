@@ -84,7 +84,7 @@ flowchart TB
 | 묶음 | Test ID | RED | GREEN | REFACTOR | Report |
 |------|---------|-----|-------|----------|--------|
 | 1 | D-CNV-01 `to_meter` | **완료** `a38dff6` · Issue [#3](https://github.com/olive-su/UnitConverter_02/issues/3) | **완료** `2b0f01e` · Issue [#5](https://github.com/olive-su/UnitConverter_02/issues/5) | — | 06, 07 |
-| 2 | D-CNV-02 `convert_all` | **완료** `fe7d672` · Issue [#7](https://github.com/olive-su/UnitConverter_02/issues/7) | **완료** | — | 08, 09 |
+| 2 | D-CNV-02 `convert_all` | **완료** `fe7d672` · Issue [#7](https://github.com/olive-su/UnitConverter_02/issues/7) | **완료** `0b3cd3e` | — | 08, 09 |
 | 3 | D-CNV-03 feet→yard meter 경유 | **다음** | — | — | — |
 
 `main` 대상 오픈 PR (머지 전): #2 (`spec`), #4 (`red`), #6 (`green`). `main`은 `a4a8f45` 유지.
