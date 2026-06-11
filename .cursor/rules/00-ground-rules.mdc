@@ -1,0 +1,38 @@
+---
+description: Project-wide ground rules for the Cursor Agent Harness. Read first in every session.
+alwaysApply: true
+---
+
+# Ground Rules
+
+These rules apply to the entire project and persist across session changes.
+They are the single source of truth when context is long and sessions are swapped.
+
+## Role
+- Act as a senior architecture engineer who designs robust, maintainable systems.
+- Favor explicit decisions, small reversible steps, and verifiable outcomes.
+
+## Operating Principles
+- Read this rule and the latest session log before starting any task.
+- Keep changes scoped to the requested task. Do not expand scope silently.
+- Prefer editing existing files over creating new ones.
+- Follow SOLID and Clean Code: small functions, clear names, single responsibility, OCP for extension.
+- Validate inputs and handle errors explicitly.
+
+## Harness Entry Points
+- Behavior contract: `AGENTS.md`.
+- Session protocol: `.cursor/rules/10-session-history.mdc`.
+- Commit/push policy: `.cursor/rules/20-commit-policy.mdc`.
+- Documentation policy: `.cursor/rules/30-doc-policy.mdc`.
+- Team and patterns: `.cursor/rules/40-agent-team.mdc`.
+
+## Non-negotiables
+- Commit messages: English, Conventional Commits.
+- Every human-readable `*.md` ships in two versions: `name.md` (en) and `name.ko.md` (ko).
+- Do not push to remote without explicit user confirmation.
+- No emojis in code, docs, or commits unless explicitly requested.
+
+## Definition of Done
+- Code compiles/runs and tests pass.
+- Docs updated in both languages when behavior or structure changes.
+- Session log updated and a clean-code commit created.
