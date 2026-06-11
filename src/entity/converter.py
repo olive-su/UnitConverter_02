@@ -1,5 +1,7 @@
 """Length conversion to meters (meter SSOT hub). Trace: FR-02."""
 
+from src.entity.unit_registry import lookup
+
 METER_TO_FEET = 3.28084
 METER_TO_YARD = 1.09361
 
@@ -10,6 +12,9 @@ def to_meter(unit: str, value: float) -> float:
         return value
     if unit == "feet":
         return value / METER_TO_FEET
+    registered = lookup(unit)
+    if registered is not None:
+        return value * registered
     raise ValueError(f"unknown unit: {unit}")
 
 
