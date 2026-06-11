@@ -13,7 +13,7 @@ Single source of truth for what to build, in what order, and under which rules. 
   - Guide filenames: English slugs.
   - REFACTOR branch name: `refactor` (not `refactoring`).
 - Reference project for structure and conventions: `C:\Users\usejen_id\workspace\MagicSquare_1004`.
-- Remote: `https://github.com/olive-su/UnitConverter_02.git`. Local branch: `red` (Cycle 1 — D-CNV-03 RED done).
+- Remote: `https://github.com/olive-su/UnitConverter_02.git`. Local branch: `red` (Cycle 2 — U-IN-01 RED done).
 
 ## 2. Inputs
 
@@ -73,10 +73,10 @@ flowchart TB
 | 0 — guide/ | — | — | **Done** |
 | 1 — Spec | `spec` | Report 01~05 | **Done** (PR [#2](https://github.com/olive-su/UnitConverter_02/pull/2) open) |
 | 2 — Scaffolding | `spec` | Report 04 Step 2 | **Done** (in `cb868da`, PR #2) |
-| 3 — RED | `red` | Report 06~10 | **Cycle 1 partial** — D-CNV-01·02·03 RED done (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
-| 4 — GREEN | `green` | Report 07~09 | **Cycle 1 partial** — D-CNV-01·02 GREEN done (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
-| 5 — REFACTOR | `refactor` | Report 12 | Pending (defer until Cycle 1 GREEN complete or smells) |
-| 6 — Repeat | `red`→`green`→`refactor` | Report 13 | **In progress** — Cycle 1: D-CNV-01·02 RED+GREEN done; D-CNV-03 RED done |
+| 3 — RED | `red` | Report 06~15 | **Cycle 1 done** · **Cycle 2 partial** — U-IN-01 RED (PR [#4](https://github.com/olive-su/UnitConverter_02/pull/4) open) |
+| 4 — GREEN | `green` | Report 07~12 | **Cycle 1 done** — D-CNV+Golden (PR [#6](https://github.com/olive-su/UnitConverter_02/pull/6) open) |
+| 5 — REFACTOR | `refactor` | Report 13~14 | **Cycle 1 done** — P0 `6219a81` (pushed; PR pending) |
+| 6 — Repeat | `red`→`green`→`refactor` | Report 15+ | **Cycle 1 complete** · **Cycle 2 in progress** — U-IN-01 RED |
 | 7 — P1 | `new_features` (optional) | — | Pending |
 
 ### ARRR bundle progress (Cycle 1 — Track B P0)
@@ -85,9 +85,19 @@ flowchart TB
 |--------|---------|-----|-------|----------|---------|
 | 1 | D-CNV-01 `to_meter` | **Done** `a38dff6` · Issue [#3](https://github.com/olive-su/UnitConverter_02/issues/3) | **Done** `2b0f01e` · Issue [#5](https://github.com/olive-su/UnitConverter_02/issues/5) | — | 06, 07 |
 | 2 | D-CNV-02 `convert_all` | **Done** `fe7d672` · Issue [#7](https://github.com/olive-su/UnitConverter_02/issues/7) | **Done** `0b3cd3e` | — | 08, 09 |
-| 3 | D-CNV-03 feet→yard via meter | **Done** `840bfa4` | **Next** | — | 10 |
+| 3 | D-CNV-03 feet→yard via meter | **Done** `840bfa4` | **Done** `2d7bf29` | **Done** `6219a81` | 10, 11, 13~14 |
+| — | Golden Master (Cycle 1) | — | **Done** `14b860a` | — | 12 |
 
-Open PRs to `main` (not merged as of last update): #2 (`spec`), #4 (`red`), #6 (`green`). `main` still at `a4a8f45`.
+### ARRR bundle progress (Cycle 2 — Track A P0)
+
+| Bundle | Test ID | RED | GREEN | REFACTOR | Reports |
+|--------|---------|-----|-------|----------|---------|
+| 1 | U-IN-01 empty → format error | **Done** | **Next** | — | 15 |
+| 2 | U-IN-02 no colon | Pending | — | — | — |
+| 3 | U-IN-03 negative | Pending | — | — | — |
+| 4 | U-OUT-01 output lines | Pending | — | — | — |
+
+Open PRs to `main` (not merged): #2 (`spec`), #4 (`red`), #6 (`green`). `refactor` @ `6219a81` pushed. `main` at `a4a8f45`.
 
 ### Branch SSOT
 
@@ -148,7 +158,8 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 
 - **D-CNV-01 done**: `tests/entity/test_d_cnv_01.py`, Report 06, commit `a38dff6`.
 - **D-CNV-02 done**: `tests/entity/test_d_cnv_02.py`, Report 08, commit `fe7d672`.
-- **D-CNV-03 done**: `tests/entity/test_d_cnv_03.py`, Report 10.
+- **D-CNV-03 done**: `tests/entity/test_d_cnv_03.py`, Report 10, commit `840bfa4`.
+- **U-IN-01 done**: `tests/boundary/test_u_in_01.py`, Report 15.
 - After `spec` PR merged: `git checkout -b red` from `main` (or continue bundle branches per team flow).
 - Dual-Track RED from [guide/06_dualtrack-red-design.md](guide/06_dualtrack-red-design.md).
 - Workflow: `/red-test-plan` → `/red-skeleton` per bundle. Track B first.
@@ -158,14 +169,15 @@ Delivered with Phase 1 on `spec` (`cb868da`).
 ### Phase 4 — GREEN (`green` branch)
 
 - **D-CNV-01 done**: `src/entity/converter.py` (`to_meter`), Report 07, commit `2b0f01e`.
-- **D-CNV-02 done**: `convert_all` minimal impl, Report 09, commit `0b3cd3e`, pytest 2 passed.
+- **D-CNV-02 done**: `convert_all` minimal impl, Report 09, commit `0b3cd3e`.
+- **D-CNV-03 done**: `yard` in `convert_all`, Report 11, commit `2d7bf29`.
+- **Golden Master done**: Report 12, commit `14b860a`, pytest 6 passed.
 - After `red` PR merged: `git checkout -b green` from `main`.
 - `/green-minimal` → `/golden-master` for passing tests.
-- Minimal implementation only; Golden Master for stable output.
 
 ### Phase 5 — REFACTOR (`refactor` branch)
 
-- After `green` PR merged: `git checkout -b refactor` from `main`.
+- **P0 done**: `constants.py` + map-driven converter, Report 13~14, commit `6219a81`.
 - `/refactor-smell` (Ask) → `/refactor-safe` (Agent). Contract unchanged.
 
 ### Phase 6 — Repeat cycles
@@ -265,7 +277,9 @@ Example titles:
 - `green: minimal to_meter for D-CNV-01`
 - `green: minimal convert_all for D-CNV-02`
 - `red: D-CNV-03 failing skeleton (Track B)`
-- `refactor: extract ratio constants (contract unchanged)`
+- `test(green): add Cycle 1 Track B golden master baselines`
+- `refactor: extract unit ratio map (contract unchanged)`
+- `red: U-IN-01 failing skeleton (Track A)`
 
 ## 10. Project layout
 
@@ -307,7 +321,7 @@ UnitConverter_02/
 
 ## 13. Current focus
 
-- **Progress**: Phases 0–2 complete; D-CNV-01·02 RED+GREEN done; **D-CNV-03 RED** done (`840bfa4`).
-- **Local branch**: `red`. Open PRs: #2, #4, #6 → `main` (awaiting merge/review).
-- **Next execution**: D-CNV-03 **GREEN** on `green` — `/green-minimal` → `convert_all`에 `yard` 추가.
+- **Progress**: **Cycle 1 complete** (D-CNV-01~03 RED+GREEN+Golden+REFACTOR P0). **Cycle 2 started** — U-IN-01 RED done.
+- **Local branch**: `red`. Open PRs: #2, #4, #6 → `main`; `refactor` @ `6219a81` pushed (PR pending).
+- **Next execution**: U-IN-01 **GREEN** on `green` — `/green-minimal` → `parse_input` empty → `FormatError`.
 - **Entry prompt**: [docs/MASTER_PROMPT.md](docs/MASTER_PROMPT.md) (Spec); use slash commands for ARRR cycles.
